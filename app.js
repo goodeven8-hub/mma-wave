@@ -248,6 +248,19 @@ document.getElementById('articleModal').addEventListener('click', e => {
 // ============================================================
 // CATEGORY FILTER
 // ============================================================
+document.querySelector('.logo').addEventListener('click', e => {
+  e.preventDefault();
+  catBtns.forEach(b => b.classList.remove('active'));
+  document.querySelector('.cat-btn[data-cat="all"]').classList.add('active');
+  currentCat     = 'all';
+  eventsExpanded = false;
+  renderEvents();
+  renderNews(true);
+  activeCalDate = null;
+  renderCalendar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 const catBtns = document.querySelectorAll('.cat-btn');
 
 catBtns.forEach(btn => {
