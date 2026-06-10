@@ -661,7 +661,7 @@ def collect_ufc_times(events: list) -> list:
         matchup_m = re.match(r"^(.+?)\s+\d{4}\.", txt)
         # イベントページのURL取得
         link_el = card.select_one("a[href*='/event/']")
-        event_url = ("https://www.ufc.com" + link_el["href"]) if link_el else JP_ORG_URLS["ufc"]
+        event_url = ("https://www.ufc.com" + link_el["href"]) if link_el else None
         ufc_data[date_key] = {
             "time":    time_m.group(1).zfill(5) if time_m else "",
             "matchup": matchup_m.group(1).strip() if matchup_m else "",
@@ -743,9 +743,6 @@ def build_event_url(cat: str, name: str, rizin_url_map: dict | None = None) -> s
         return "https://jp.rizinff.com/"
 
     if cat == "one":
-        m = re.search(r"ONE\s+Fight\s+Night\s+(\d+)", n, re.IGNORECASE)
-        if m:
-            return f"https://en.wikipedia.org/wiki/ONE_Fight_Night_{m.group(1)}"
         return JP_ORG_URLS["one"]
 
     return JP_ORG_URLS.get(cat, "")

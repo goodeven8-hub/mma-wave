@@ -57,7 +57,7 @@
     "watch": [
       "one-fc"
     ],
-    "url": "https://en.wikipedia.org/wiki/ONE_Fight_Night_44"
+    "url": "https://www.onefc.com/events/"
   },
   {
     "cat": "ufc",
@@ -131,7 +131,7 @@
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/events"
+    "url": null
   },
   {
     "cat": "one",
@@ -143,7 +143,7 @@
     "watch": [
       "one-fc"
     ],
-    "url": "https://en.wikipedia.org/wiki/ONE_Fight_Night_45"
+    "url": "https://www.onefc.com/events/"
   },
   {
     "cat": "rizin",
@@ -181,7 +181,7 @@
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/events"
+    "url": null
   },
   {
     "cat": "ufc",
@@ -193,7 +193,7 @@
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/events"
+    "url": null
   },
   {
     "cat": "one",
@@ -205,6 +205,6 @@
     "watch": [
       "one-fc"
     ],
-    "url": "https://en.wikipedia.org/wiki/ONE_Fight_Night_46"
+    "url": "https://www.onefc.com/events/"
   }
 ]
