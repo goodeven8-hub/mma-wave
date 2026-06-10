@@ -687,21 +687,60 @@ def collect_ufc_times(events: list) -> list:
     return events
 
 
-def build_event_url(cat: str, name: str) -> str:
+def fetch_rizin_event_urls() -> dict:
     """
-    イベント名からWikipedia/公式URLを生成。
-    RIZIN: 日本語Wikipedia, ONE Fight Night: 英語Wikipedia, それ以外: 公式トップ
+    jp.rizinff.com の大会情報タグページからイベント名→URLのマップを取得。
+    例: {'rizin landmark 15': 'https://jp.rizinff.com/_ct/17825995', ...}
+    """
+    url = "https://jp.rizinff.com/_tags/%E5%A4%A7%E4%BC%9A%E6%83%85%E5%A0%B1"
+    try:
+        resp = requests.get(url, headers=_REQ_HEADERS, timeout=12)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  RIZIN大会URL取得失敗: {e}")
+        return {}
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    result = {}
+    date_event_pat = re.compile(r"^\d{4}年\d+月\d+日(.+)$")
+
+    for a in soup.find_all("a", href=True):
+        text = a.get_text(strip=True)
+        href = a["href"]
+        if "/_ct/" not in href:
+            continue
+        m = date_event_pat.match(text)
+        if not m:
+            continue
+        event_name = m.group(1).strip()
+        # 正規化: 大文字化・スポンサー名除去
+        key = re.sub(r"^.+?presents\s+", "", event_name, flags=re.IGNORECASE).strip().lower()
+        full_url = href if href.startswith("http") else f"https://jp.rizinff.com{href}"
+        if key not in result:   # 最初に見つかったURLを使用（大会情報ページ）
+            result[key] = full_url
+
+    print(f"  RIZIN大会URL取得: {len(result)} 件")
+    return result
+
+
+def build_event_url(cat: str, name: str, rizin_url_map: dict | None = None) -> str:
+    """
+    イベント名から公式/WikipediaURLを生成。
+    RIZIN: jp.rizinff.com → ONE Fight Night: 英語Wikipedia → それ以外: 公式トップ
     """
     n = name.strip()
 
     if cat == "rizin":
-        m = re.search(r"Landmark\s+(\d+)", n, re.IGNORECASE)
-        if m:
-            return f"https://ja.wikipedia.org/wiki/RIZIN_LANDMARK_{m.group(1)}"
-        m = re.search(r"Rizin\s+(\d+)", n, re.IGNORECASE)
-        if m:
-            return f"https://ja.wikipedia.org/wiki/RIZIN.{m.group(1)}"
-        return JP_ORG_URLS["rizin"]
+        if rizin_url_map:
+            # ドット・スペースを統一して比較
+            def norm(s):
+                return re.sub(r"[\.\s]+", " ", s).strip().lower()
+            n_norm = norm(re.sub(r"^.+?presents\s+", "", n, flags=re.IGNORECASE))
+            for key, url in rizin_url_map.items():
+                if norm(key) in n_norm or n_norm in norm(key):
+                    return url
+        # フォールバック: jp.rizinff.comのトップ
+        return "https://jp.rizinff.com/"
 
     if cat == "one":
         m = re.search(r"ONE\s+Fight\s+Night\s+(\d+)", n, re.IGNORECASE)
@@ -736,8 +775,9 @@ def collect_events() -> None:
         cat="rizin", watch=watch_jp["rizin"], time_default="17:00",
     )
     print(f"  RIZIN (Wikipedia): {len(rizin)} 件")
+    rizin_url_map = fetch_rizin_event_urls()
     for e in rizin:
-        e["url"] = build_event_url("rizin", e["name"])
+        e["url"] = build_event_url("rizin", e["name"], rizin_url_map)
     all_events.extend(rizin)
 
     # ONE Championship
