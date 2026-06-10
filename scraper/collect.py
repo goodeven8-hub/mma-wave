@@ -449,6 +449,92 @@ COUNTRY_STRIP = [
 UFC_PPV_TIME = "10:00"
 UFC_FN_TIME  = "09:00"
 
+# ============================================================
+# 日本向け視聴サービス設定（デフォルト値 ＋ 自動検出）
+# ============================================================
+JP_WATCH_DEFAULTS = {
+    "ufc":   ["unext"],
+    "rizin": ["rizin-live", "abema"],
+    "one":   ["one-fc", "abema"],
+}
+
+JP_ORG_URLS = {
+    "ufc":   "https://www.ufc.com/events",
+    "rizin": "https://rizinff.com/",
+    "one":   "https://www.onefc.com/events/",
+}
+
+_REQ_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+
+
+def detect_watch_jp() -> dict:
+    """
+    各放送サイトをスクレイピングして日本向け視聴サービスを自動検出。
+    取得失敗時は JP_WATCH_DEFAULTS にフォールバック。
+    """
+    result = {k: list(v) for k, v in JP_WATCH_DEFAULTS.items()}
+
+    # ── UFC: U-NEXTのUFCページでコンテンツ有無を確認 ──────────────
+    try:
+        r = requests.get("https://video.unext.jp/genre/sports/mma",
+                         headers=_REQ_HEADERS, timeout=12)
+        text = r.text.lower()
+        services = []
+        if "ufc" in text:
+            services.append("unext")
+        # UFC Fight Passへのリンクがあれば追加
+        if "ufcfightpass" in text:
+            services.append("ufc-fp")
+        if services:
+            result["ufc"] = services
+            print(f"  UFC視聴サービス検出: {services}")
+        else:
+            print(f"  UFC視聴: U-NEXTにUFCコンテンツ確認できず → デフォルト {JP_WATCH_DEFAULTS['ufc']}")
+    except Exception as e:
+        print(f"  UFC視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['ufc']}")
+
+    # ── RIZIN: 公式サイトからストリーミングサービスを検出 ──────────
+    try:
+        r = requests.get("https://rizinff.com/", headers=_REQ_HEADERS, timeout=12)
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True).lower()
+        services = []
+        if "rizin live" in text or "live.rizinff" in text:
+            services.append("rizin-live")
+        if "abema" in text:
+            services.append("abema")
+        if "wowow" in text:
+            services.append("wowow")
+        if "amazon" in text or "prime video" in text:
+            services.append("amazon")
+        if services:
+            result["rizin"] = services
+            print(f"  RIZIN視聴サービス検出: {services}")
+        else:
+            print(f"  RIZIN視聴: サービス検出できず → デフォルト {JP_WATCH_DEFAULTS['rizin']}")
+    except Exception as e:
+        print(f"  RIZIN視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['rizin']}")
+
+    # ── ONE: 公式サイトからストリーミングサービスを検出 ─────────────
+    # ONE FC+は自社プラットフォームなので常に含める
+    try:
+        r = requests.get("https://www.onefc.com/events/",
+                         headers=_REQ_HEADERS, timeout=12)
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True).lower()
+        services = ["one-fc"]  # ONE FC+は常に利用可能
+        if "abema" in text:
+            services.append("abema")
+        if "unext" in text or "u-next" in text:
+            services.append("unext")
+        # Amazonはワールドワイド配信なのでONEページに出てきても日本では別扱い
+        result["one"] = services
+        print(f"  ONE視聴サービス検出: {services}")
+    except Exception as e:
+        print(f"  ONE視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['one']}")
+
+    return result
+
 
 def city_short(location: str) -> str:
     v = location.strip()
@@ -544,7 +630,7 @@ def scrape_wiki_events(wiki_url: str, cat: str, watch: list,
 
 
 def collect_ufc_times(events: list) -> list:
-    """UFC公式からmatchupと時刻を補完"""
+    """UFC公式からmatchup・時刻・イベントURLを補完"""
     try:
         resp = requests.get(
             "https://www.ufc.com/events",
@@ -557,7 +643,7 @@ def collect_ufc_times(events: list) -> list:
         return events
 
     soup = BeautifulSoup(resp.text, "html.parser")
-    ufc_data = {}  # date → {time, matchup}
+    ufc_data = {}  # date → {time, matchup, url}
 
     for card in soup.select(".c-card-event--result"):
         txt = card.get_text(" ", strip=True)
@@ -567,11 +653,15 @@ def collect_ufc_times(events: list) -> list:
         if not date_m:
             continue
         date_key = f"{date_m.group(1)}-{date_m.group(2).zfill(2)}-{date_m.group(3).zfill(2)}"
-        time_m   = re.search(r"(\d{1,2}:\d{2})\s*JST", txt)
+        time_m    = re.search(r"(\d{1,2}:\d{2})\s*JST", txt)
         matchup_m = re.match(r"^(.+?)\s+\d{4}\.", txt)
+        # イベントページのURL取得
+        link_el = card.select_one("a[href*='/event/']")
+        event_url = ("https://www.ufc.com" + link_el["href"]) if link_el else JP_ORG_URLS["ufc"]
         ufc_data[date_key] = {
             "time":    time_m.group(1).zfill(5) if time_m else "",
             "matchup": matchup_m.group(1).strip() if matchup_m else "",
+            "url":     event_url,
         }
 
     for e in events:
@@ -583,22 +673,29 @@ def collect_ufc_times(events: list) -> list:
             key = (edate + timedelta(days=delta)).strftime("%Y-%m-%d")
             if key in ufc_data:
                 d = ufc_data[key]
-                # JSTの正しい日付に更新
                 e["date"]    = key
                 e["time"]    = d["time"] or e["time"]
                 e["matchup"] = d["matchup"] or e["matchup"]
+                e["url"]     = d["url"]
                 break
+        if "url" not in e:
+            e["url"] = JP_ORG_URLS["ufc"]
     return events
 
 
 def collect_events() -> None:
     print("\n[EVENTS] Wikipedia スクレイピング（UFC/RIZIN/ONE）...")
+
+    # 日本向け視聴サービスを自動検出
+    print("  [視聴サービス検出中...]")
+    watch_jp = detect_watch_jp()
+
     all_events = []
 
     # UFC
     ufc = scrape_wiki_events(
         "https://en.wikipedia.org/wiki/List_of_UFC_events",
-        cat="ufc", watch=["ufc-fp", "amazon"],
+        cat="ufc", watch=watch_jp["ufc"],
     )
     print(f"  UFC (Wikipedia): {len(ufc)} 件")
     all_events.extend(ufc)
@@ -607,20 +704,25 @@ def collect_events() -> None:
     year = NOW.year
     rizin = scrape_wiki_events(
         f"https://en.wikipedia.org/wiki/{year}_in_Rizin_Fighting_Federation",
-        cat="rizin", watch=["rizin-live", "abema"], time_default="17:00",
+        cat="rizin", watch=watch_jp["rizin"], time_default="17:00",
     )
     print(f"  RIZIN (Wikipedia): {len(rizin)} 件")
+    # RIZINはデフォルトURLを設定
+    for e in rizin:
+        e.setdefault("url", JP_ORG_URLS["rizin"])
     all_events.extend(rizin)
 
     # ONE Championship
     one = scrape_wiki_events(
         "https://en.wikipedia.org/wiki/List_of_ONE_Championship_events",
-        cat="one", watch=["one-fc"], time_default="20:00",
+        cat="one", watch=watch_jp["one"], time_default="20:00",
     )
     print(f"  ONE (Wikipedia): {len(one)} 件")
+    for e in one:
+        e.setdefault("url", JP_ORG_URLS["one"])
     all_events.extend(one)
 
-    # UFC に UFC公式から matchup と時刻を補完
+    # UFC に UFC公式から matchup・時刻・URLを補完
     all_events = collect_ufc_times(all_events)
 
     all_events.sort(key=lambda e: e["date"])

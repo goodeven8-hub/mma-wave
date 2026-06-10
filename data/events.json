@@ -7,9 +7,9 @@
     "matchup": "トプリア vs ゲイジー",
     "venue": "White House",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-freedom-250"
   },
   {
     "cat": "ufc",
@@ -19,9 +19,9 @@
     "matchup": "ケイプ vs 堀口",
     "venue": "Meta Apex",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-june-20-2026"
   },
   {
     "cat": "one",
@@ -31,8 +31,9 @@
     "matchup": "",
     "venue": "Ball Arena",
     "watch": [
-      "one-fc"
-    ]
+      "amazon"
+    ],
+    "url": "https://www.onefc.com/events/"
   },
   {
     "cat": "ufc",
@@ -42,9 +43,9 @@
     "matchup": "フィジエフ vs トーレス",
     "venue": "National Gymnastics Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-june-27-2026"
   },
   {
     "cat": "one",
@@ -54,8 +55,9 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "one-fc"
-    ]
+      "amazon"
+    ],
+    "url": "https://www.onefc.com/events/"
   },
   {
     "cat": "ufc",
@@ -65,9 +67,9 @@
     "matchup": "マクレガー vs ホロウェイ 2",
     "venue": "T-Mobile Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-329"
   },
   {
     "cat": "rizin",
@@ -79,7 +81,8 @@
     "watch": [
       "rizin-live",
       "abema"
-    ]
+    ],
+    "url": "https://rizinff.com/"
   },
   {
     "cat": "ufc",
@@ -89,9 +92,9 @@
     "matchup": "TBD vs TBD",
     "venue": "Paycom Center",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-july-18-2026"
   },
   {
     "cat": "ufc",
@@ -101,9 +104,9 @@
     "matchup": "アンカラエフ vs ラウントリーJr.",
     "venue": "Etihad Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-july-25-2026"
   },
   {
     "cat": "ufc",
@@ -113,9 +116,9 @@
     "matchup": "メディチ vs ロドリゲス",
     "venue": "Belgrade Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-01-2026"
   },
   {
     "cat": "ufc",
@@ -125,9 +128,9 @@
     "matchup": "",
     "venue": "Meta Apex",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/events"
   },
   {
     "cat": "one",
@@ -137,8 +140,9 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "one-fc"
-    ]
+      "amazon"
+    ],
+    "url": "https://www.onefc.com/events/"
   },
   {
     "cat": "rizin",
@@ -150,7 +154,8 @@
     "watch": [
       "rizin-live",
       "abema"
-    ]
+    ],
+    "url": "https://rizinff.com/"
   },
   {
     "cat": "ufc",
@@ -160,9 +165,9 @@
     "matchup": "TBD vs TBD",
     "venue": "Xfinity Mobile Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-330"
   },
   {
     "cat": "ufc",
@@ -172,9 +177,9 @@
     "matchup": "",
     "venue": "Shanghai Indoor Stadium",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/events"
   },
   {
     "cat": "ufc",
@@ -184,9 +189,9 @@
     "matchup": "",
     "venue": "Accor Arena",
     "watch": [
-      "ufc-fp",
-      "amazon"
-    ]
+      "unext"
+    ],
+    "url": "https://www.ufc.com/events"
   },
   {
     "cat": "one",
@@ -196,7 +201,8 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "one-fc"
-    ]
+      "amazon"
+    ],
+    "url": "https://www.onefc.com/events/"
   }
 ]

@@ -5,12 +5,13 @@
 let EVENTS = [];
 
 const WATCH_LABELS = {
+  'unext':     { label:'U-NEXT',         cls:'unext' },
   'ufc-fp':    { label:'UFC Fight Pass', cls:'ufc-fp' },
   'amazon':    { label:'Amazon Prime',   cls:'amazon' },
   'rizin-live':{ label:'RIZIN LIVE',     cls:'rizin-live' },
   'abema':     { label:'ABEMA',          cls:'abema' },
   'tbs':       { label:'TBS',            cls:'tbs' },
-  'one-fc':    { label:'ONE FC',         cls:'one-fc' },
+  'one-fc':    { label:'ONE FC+',        cls:'one-fc' },
   'wowow':     { label:'WOWOW',          cls:'wowow' },
 };
 
@@ -25,8 +26,7 @@ const AFFILIATE_BANNERS = {
   ufc: `
     <div class="aff-label">UFC を観るなら</div>
     <div class="aff-row">
-      <a class="aff-btn ufc-fp" href="https://www.ufcfightpass.com/?utm_source=mmawave" target="_blank" rel="noopener">UFC Fight Pass で観る</a>
-      <a class="aff-btn amazon" href="https://www.amazon.co.jp/primevideo?tag=mmawave-22" target="_blank" rel="noopener">Amazon Prime Video で観る</a>
+      <a class="aff-btn unext" href="https://video.unext.jp/genre/sports/mma" target="_blank" rel="noopener">U-NEXT で観る</a>
     </div>`,
   rizin: `
     <div class="aff-label">RIZIN を観るなら</div>
@@ -111,8 +111,10 @@ function renderEvents() {
       return `<span class="watch-chip ${wl.cls}">${wl.label}</span>`;
     }).join('');
     const featured = i === 0 && !eventsExpanded ? 'featured-card' : '';
+    const link = e.url ? ` role="link" tabindex="0" data-url="${e.url}"` : '';
+    const linkCls = e.url ? ' event-card-link' : '';
     return `
-      <div class="event-card ${featured}">
+      <div class="event-card ${featured}${linkCls}"${link}>
         <div class="event-card-header">
           <span class="org-badge ${ORG_BADGE[e.cat]}">${e.cat.toUpperCase()}</span>
           <span class="event-days-badge ${badgeCls}">${dayLabel}</span>
@@ -123,6 +125,12 @@ function renderEvents() {
         <div class="event-watch-row">${watches}</div>
       </div>`;
   }).join('');
+
+  // イベントカードのクリックでURL遷移
+  row.querySelectorAll('.event-card-link').forEach(card => {
+    card.addEventListener('click', () => window.open(card.dataset.url, '_blank', 'noopener'));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') window.open(card.dataset.url, '_blank', 'noopener'); });
+  });
 
   if (filtered.length <= INITIAL) {
     btn.style.display = 'none';
@@ -392,20 +400,41 @@ document.querySelectorAll('.sub-tab').forEach(tab => {
 function renderChampions(data) {
   if (!data) return;
 
-  // UFC 男子
+  const defBadge = (n) => {
+    if (n === undefined || n === null) return '';
+    const gold = n >= 3 ? ' def-gold' : '';
+    return `<span class="def-badge${gold}">${n}</span>`;
+  };
+  const champRow = c =>
+    `<tr><td class="weight">${c.weight}</td><td class="name">${c.name}</td>` +
+    `<td class="since">${c.since || '–'}</td>` +
+    `<td class="defenses">${c.defenses !== undefined ? defBadge(c.defenses) : ''}</td></tr>`;
+
+  // UFC 男子（since/defenses がある場合のみ上書き）
   const menTbody = document.querySelector('#champUfcMen tbody');
   if (menTbody && data.ufc?.men?.length) {
-    menTbody.innerHTML = data.ufc.men.map(c =>
-      `<tr><td class="weight">${c.weight}</td><td class="name">${c.name}</td></tr>`
-    ).join('');
+    if (data.ufc.men.some(c => c.since)) {
+      menTbody.innerHTML = data.ufc.men.map(champRow).join('');
+    } else {
+      // since なし → 名前だけ更新、since/defenses は静的HTMLを維持
+      menTbody.querySelectorAll('tr').forEach((tr, i) => {
+        const c = data.ufc.men[i];
+        if (c) { tr.querySelector('.name').textContent = c.name; }
+      });
+    }
   }
 
   // UFC 女子
   const womenTbody = document.querySelector('#champUfcWomen tbody');
   if (womenTbody && data.ufc?.women?.length) {
-    womenTbody.innerHTML = data.ufc.women.map(c =>
-      `<tr><td class="weight">${c.weight}</td><td class="name">${c.name}</td></tr>`
-    ).join('');
+    if (data.ufc.women.some(c => c.since)) {
+      womenTbody.innerHTML = data.ufc.women.map(champRow).join('');
+    } else {
+      womenTbody.querySelectorAll('tr').forEach((tr, i) => {
+        const c = data.ufc.women[i];
+        if (c) { tr.querySelector('.name').textContent = c.name; }
+      });
+    }
   }
 
   // UFC P4P
