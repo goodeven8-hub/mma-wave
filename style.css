@@ -638,9 +638,8 @@ body.dark .def-badge.def-gold {
   color: var(--text2);
   line-height: 1.85;
   white-space: pre-wrap;
-  flex: 1;
   min-height: 100px;
-  padding: 0 28px;
+  padding: 0 28px 16px;
 }
 .article-modal-source {
   display: inline-block;
