@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMA WAVE — 格闘技ニュース</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================
+     FRAME 1: HEADER
+     ============================ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="logo">MMA<span>WAVE</span></a>
+    <nav class="nav-cats">
+      <button class="cat-btn active" data-cat="all">すべて</button>
+      <button class="cat-btn" data-cat="ufc">UFC</button>
+      <button class="cat-btn" data-cat="rizin">RIZIN</button>
+      <button class="cat-btn" data-cat="one">ONE</button>
+    </nav>
+    <button class="dark-toggle" id="darkToggle">🌙</button>
+  </div>
+</header>
+
+<!-- ============================
+     FRAME 2: EVENTS（JSで動的生成）
+     ============================ -->
+<section class="events-frame">
+  <div class="container events-inner">
+    <div class="events-header-row">
+      <div class="events-label">📅 直近イベント</div>
+    </div>
+    <div class="events-row" id="eventsRow"></div>
+    <button class="events-more" id="eventsMore">もっと見る（3ヶ月先まで）</button>
+  </div>
+</section>
+
+<!-- ============================
+     FRAME 3: NEWS + SIDEBAR
+     ============================ -->
+<div class="content-frame">
+  <div class="container content-inner">
+
+    <!-- ニュースカラム -->
+    <main class="news-col">
+      <div class="news-grid" id="newsGrid">
+        <!-- JSで動的生成 -->
+      </div>
+      <button class="load-more" id="loadMore" style="display:none">もっと読む</button>
+    </main>
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+
+      <div class="widget">
+        <div class="widget-title">📆 記事カレンダー</div>
+        <div class="cal-nav">
+          <button class="cal-arrow" id="calPrev">‹</button>
+          <span class="cal-month" id="calMonth"></span>
+          <button class="cal-arrow" id="calNext">›</button>
+        </div>
+        <table class="cal-table" id="calTable">
+          <thead><tr>
+            <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
+          </tr></thead>
+          <tbody id="calBody"></tbody>
+        </table>
+        <div class="cal-legend">● 記事あり　クリックで絞り込み</div>
+      </div>
+
+      <div class="widget widget-champ" id="champWidget">
+        <div class="widget-title">🏆 現役チャンピオン <span class="champ-hint">詳細を見る →</span></div>
+        <table class="champ-table" id="champSidebarTable">
+          <tr><td class="champ-org">UFC HW</td><td>ジョン・ジョーンズ</td></tr>
+          <tr><td class="champ-org">UFC LHW</td><td>アレックス・ポアタン</td></tr>
+          <tr><td class="champ-org">UFC BW</td><td>ショーン・オマリー</td></tr>
+          <tr><td class="champ-org">RIZIN BW</td><td>朝倉 海</td></tr>
+          <tr><td class="champ-org">RIZIN FW</td><td>クレベル・コイケ</td></tr>
+        </table>
+      </div>
+
+      <div class="widget">
+        <div class="widget-title">📺 視聴サービス</div>
+        <div class="watch-services">
+          <a href="#" class="service-btn ufc-fp-full">UFC Fight Pass</a>
+          <a href="#" class="service-btn rizin-live-full">RIZIN LIVE</a>
+          <a href="#" class="service-btn one-fc-full">ONE FC</a>
+          <a href="#" class="service-btn abema-full">ABEMA</a>
+          <a href="#" class="service-btn amazon-full">Amazon Prime Video</a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ============================
+     ARTICLE MODAL
+     ============================ -->
+<div class="modal-overlay" id="articleModal">
+  <div class="modal-box article-modal-box">
+    <div class="modal-header">
+      <span class="article-modal-badge" id="articleModalBadge"></span>
+      <button class="modal-close" id="articleModalClose">✕</button>
+    </div>
+    <div class="article-modal-date" id="articleModalDate"></div>
+    <h2 class="article-modal-title" id="articleModalTitle"></h2>
+    <p class="article-modal-excerpt" id="articleModalExcerpt"></p>
+    <a class="article-modal-source" id="articleModalSource" target="_blank" rel="noopener noreferrer">
+      元記事を読む →
+    </a>
+    <div class="article-modal-affiliate" id="articleModalAffiliate"></div>
+  </div>
+</div>
+
+<!-- ============================
+     CHAMPION MODAL
+     ============================ -->
+<div class="modal-overlay" id="champModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title">🏆 現役チャンピオン一覧</h2>
+      <button class="modal-close" id="champModalClose">✕</button>
+    </div>
+
+    <!-- タブ -->
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-org="ufc">UFC</button>
+      <button class="modal-tab" data-org="rizin">RIZIN</button>
+      <button class="modal-tab" data-org="one">ONE</button>
+    </div>
+
+    <!-- UFC -->
+    <div class="modal-content active" data-org="ufc">
+      <!-- UFC サブタブ -->
+      <div class="sub-tabs">
+        <button class="sub-tab active" data-sub="champUfcMen">男子</button>
+        <button class="sub-tab" data-sub="champUfcWomen">女子</button>
+        <button class="sub-tab" data-sub="champUfcP4p">P4P</button>
+      </div>
+      <!-- 男子 -->
+      <div class="sub-content active" id="champUfcMen">
+        <table class="champ-detail-table">
+          <thead><tr><th>階級</th><th>チャンピオン</th></tr></thead>
+          <tbody>
+            <tr><td class="weight">ヘビー級</td><td class="name">ジョン・ジョーンズ</td></tr>
+            <tr><td class="weight">ライトヘビー級</td><td class="name">アレックス・ポアタン</td></tr>
+            <tr><td class="weight">ミドル級</td><td class="name">ドリカス・デュプレシー</td></tr>
+            <tr><td class="weight">ウェルター級</td><td class="name">ベラル・ムハンマド</td></tr>
+            <tr><td class="weight">ライト級</td><td class="name">イスラム・マカチェフ</td></tr>
+            <tr><td class="weight">フェザー級</td><td class="name">イリア・トパウリア</td></tr>
+            <tr><td class="weight">バンタム級</td><td class="name">ショーン・オマリー</td></tr>
+            <tr><td class="weight">フライ級</td><td class="name">アレクサンドル・パントーハ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 女子 -->
+      <div class="sub-content" id="champUfcWomen">
+        <table class="champ-detail-table">
+          <thead><tr><th>階級</th><th>チャンピオン</th></tr></thead>
+          <tbody>
+            <tr><td class="weight">女子ストロー級</td><td class="name">ワン・シャオナン</td></tr>
+            <tr><td class="weight">女子フライ級</td><td class="name">アレクサ・グラッソ</td></tr>
+            <tr><td class="weight">女子バンタム級</td><td class="name">ラクエル・ペニントン</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- P4P -->
+      <div class="sub-content" id="champUfcP4p">
+        <div class="p4p-cols">
+          <div class="p4p-col">
+            <div class="p4p-title">男子 P4P</div>
+            <div class="p4p-row p4p-champ"><span class="p4p-rank">C</span>ジョン・ジョーンズ</div>
+            <div class="p4p-row"><span class="p4p-rank">1</span>イスラム・マカチェフ</div>
+            <div class="p4p-row"><span class="p4p-rank">2</span>アレックス・ポアタン</div>
+            <div class="p4p-row"><span class="p4p-rank">3</span>イリア・トパウリア</div>
+            <div class="p4p-row"><span class="p4p-rank">4</span>レオン・エドワーズ</div>
+            <div class="p4p-row"><span class="p4p-rank">5</span>ドリカス・デュプレシー</div>
+          </div>
+          <div class="p4p-col">
+            <div class="p4p-title">女子 P4P</div>
+            <div class="p4p-row p4p-champ"><span class="p4p-rank">C</span>ワン・シャオナン</div>
+            <div class="p4p-row"><span class="p4p-rank">1</span>アレクサ・グラッソ</div>
+            <div class="p4p-row"><span class="p4p-rank">2</span>ラクエル・ペニントン</div>
+            <div class="p4p-row"><span class="p4p-rank">3</span>ジョセフィン・ヌーネン</div>
+            <div class="p4p-row"><span class="p4p-rank">4</span>アマンダ・ヌネス</div>
+            <div class="p4p-row"><span class="p4p-rank">5</span>ヴァレンティナ・シェフチェンコ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIZIN -->
+    <div class="modal-content" data-org="rizin">
+      <table class="champ-detail-table">
+        <thead><tr><th>階級</th><th>チャンピオン</th><th>戴冠日</th><th>防衛回数</th></tr></thead>
+        <tbody>
+          <tr><td class="weight">ヘビー級</td><td class="name">バダ・ハリ</td><td class="since">2024年12月31日</td><td class="defenses"><span class="def-badge">0</span></td></tr>
+          <tr><td class="weight">ライトヘビー級</td><td class="name">ヴァレンティン・モルダフスキー</td><td class="since">2023年6月24日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">ミドル級</td><td class="name">ジョニー・ケース</td><td class="since">2024年3月30日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">ライト級</td><td class="name">ホベルト・サトシ・ソウザ</td><td class="since">2025年3月29日</td><td class="defenses"><span class="def-badge">0</span></td></tr>
+          <tr><td class="weight">フェザー級</td><td class="name">クレベル・コイケ</td><td class="since">2024年6月9日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">バンタム級</td><td class="name">朝倉 海</td><td class="since">2025年9月21日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">フライ級</td><td class="name">神龍 誠</td><td class="since">2024年6月9日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">女子スーパーアトム級</td><td class="name">浜崎 朱加</td><td class="since">2023年9月24日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ONE -->
+    <div class="modal-content" data-org="one">
+      <table class="champ-detail-table">
+        <thead><tr><th>階級</th><th>チャンピオン</th><th>戴冠日</th><th>防衛回数</th></tr></thead>
+        <tbody>
+          <tr><td class="weight">ヘビー級 MMA</td><td class="name">アナトリー・マリキン</td><td class="since">2024年3月22日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">ライトヘビー級 MMA</td><td class="name">ライナー・デリダス</td><td class="since">2023年9月29日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">ミドル級 MMA</td><td class="name">ファブリシオ・アンドラジ</td><td class="since">2024年5月3日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">ウェルター級 MMA</td><td class="name">ゼバスチャン・カデスタム</td><td class="since">2023年12月1日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">ライト級 MMA</td><td class="name">クリスチャン・リー</td><td class="since">2022年8月26日</td><td class="defenses"><span class="def-badge def-gold">3</span></td></tr>
+          <tr><td class="weight">フェザー級 MMA</td><td class="name">タン・カイ</td><td class="since">2023年10月6日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">バンタム級 MMA</td><td class="name">ジャン・リーポン</td><td class="since">2024年1月26日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">フライ級 MMA</td><td class="name">デメトリアス・ジョンソン</td><td class="since">2018年3月11日</td><td class="defenses"><span class="def-badge def-gold">7</span></td></tr>
+          <tr><td class="weight">ストロー級 MMA</td><td class="name">ジョシュア・パシオ</td><td class="since">2023年10月6日</td><td class="defenses"><span class="def-badge">2</span></td></tr>
+          <tr><td class="weight">ヘビー級 キック</td><td class="name">ロマン・クリボフ</td><td class="since">2024年6月7日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+          <tr><td class="weight">ライト級 キック</td><td class="name">レグ・クレベ</td><td class="since">2023年4月22日</td><td class="defenses"><span class="def-badge">3</span></td></tr>
+          <tr><td class="weight">フェザー級 ムエタイ</td><td class="name">スパーヒーブ・サトルスィーン</td><td class="since">2023年6月23日</td><td class="defenses"><span class="def-badge def-gold">4</span></td></tr>
+          <tr><td class="weight">バンタム級 ムエタイ</td><td class="name">ロッタン・シットムアンノン</td><td class="since">2020年2月28日</td><td class="defenses"><span class="def-badge def-gold">8</span></td></tr>
+          <tr><td class="weight">女子アトム級 MMA</td><td class="name">スタンプ・フェアテックス</td><td class="since">2024年9月6日</td><td class="defenses"><span class="def-badge">1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================
+     FOOTER
+     ============================ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">MMA<span>WAVE</span></div>
+    <p class="footer-desc">国内外の格闘技ニュースをいち早くお届け</p>
+    <div class="footer-cats">
+      <a href="#">UFC</a><a href="#">RIZIN</a><a href="#">ONE</a><a href="#">プライバシーポリシー</a>
+    </div>
+    <p class="footer-copy">© 2026 MMAWAVE. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="app.js?v=8"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+[
+  {
+    "cat": "ufc",
+    "date": "2026-06-15",
+    "time": "09:00",
+    "name": "UFC Freedom 250",
+    "matchup": "トプリア vs ゲイジー",
+    "venue": "White House",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-06-21",
+    "time": "09:00",
+    "name": "UFC Fight Night: Kape vs. Horiguchi",
+    "matchup": "ケイプ vs 堀口",
+    "venue": "Meta Apex",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "one",
+    "date": "2026-06-26",
+    "time": "20:00",
+    "name": "ONE: Denver",
+    "matchup": "",
+    "venue": "Ball Arena",
+    "watch": [
+      "one-fc"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-06-28",
+    "time": "01:00",
+    "name": "UFC Fight Night: Fiziev vs. Torres",
+    "matchup": "フィジエフ vs トーレス",
+    "venue": "National Gymnastics Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "one",
+    "date": "2026-07-11",
+    "time": "20:00",
+    "name": "ONE Fight Night 44",
+    "matchup": "",
+    "venue": "Lumpinee Boxing Stadium",
+    "watch": [
+      "one-fc"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-07-12",
+    "time": "10:00",
+    "name": "UFC 329: McGregor vs. Holloway 2",
+    "matchup": "マクレガー vs ホロウェイ 2",
+    "venue": "T-Mobile Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "rizin",
+    "date": "2026-07-18",
+    "time": "17:00",
+    "name": "Rizin Landmark 15",
+    "matchup": "",
+    "venue": "Hiroshima Prefectural Sports Center",
+    "watch": [
+      "rizin-live",
+      "abema"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-07-19",
+    "time": "09:00",
+    "name": "UFC Fight Night 281",
+    "matchup": "TBD vs TBD",
+    "venue": "Paycom Center",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-07-26",
+    "time": "01:00",
+    "name": "UFC Fight Night: Ankalaev vs. Rountree Jr.",
+    "matchup": "アンカラエフ vs ラウントリーJr.",
+    "venue": "Etihad Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-02",
+    "time": "03:00",
+    "name": "UFC Fight Night: Medić vs. Rodriguez",
+    "matchup": "メディチ vs ロドリゲス",
+    "venue": "Belgrade Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-08",
+    "time": "",
+    "name": "UFC Fight Night 284",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "one",
+    "date": "2026-08-08",
+    "time": "20:00",
+    "name": "ONE Fight Night 45",
+    "matchup": "",
+    "venue": "Lumpinee Boxing Stadium",
+    "watch": [
+      "one-fc"
+    ]
+  },
+  {
+    "cat": "rizin",
+    "date": "2026-08-11",
+    "time": "17:00",
+    "name": "Rizin 54",
+    "matchup": "",
+    "venue": "Toyota Arena Tokyo",
+    "watch": [
+      "rizin-live",
+      "abema"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-16",
+    "time": "07:00",
+    "name": "UFC 330",
+    "matchup": "TBD vs TBD",
+    "venue": "Xfinity Mobile Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-29",
+    "time": "",
+    "name": "UFC Fight Night 285",
+    "matchup": "",
+    "venue": "Shanghai Indoor Stadium",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-09-05",
+    "time": "",
+    "name": "UFC Fight Night 286",
+    "matchup": "",
+    "venue": "Accor Arena",
+    "watch": [
+      "ufc-fp",
+      "amazon"
+    ]
+  },
+  {
+    "cat": "one",
+    "date": "2026-09-05",
+    "time": "20:00",
+    "name": "ONE Fight Night 46",
+    "matchup": "",
+    "venue": "Lumpinee Boxing Stadium",
+    "watch": [
+      "one-fc"
+    ]
+  }
+]
