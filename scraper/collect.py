@@ -281,8 +281,31 @@ def translate_title(text: str) -> str:
     return shorten_title(translated)
 
 
+def fetch_article_body(url: str) -> str:
+    """記事URLから本文テキストを取得。失敗時は空文字を返す"""
+    if not url:
+        return ""
+    try:
+        resp = requests.get(url, headers=_REQ_HEADERS, timeout=10)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        # よくある記事本文セレクタを優先順に試す
+        for sel in ["article", ".article-body", ".entry-content", ".post-content",
+                    ".article__body", ".story-body", "main"]:
+            el = soup.select_one(sel)
+            if el:
+                text = el.get_text(" ", strip=True)
+                if len(text) > 200:
+                    return text[:4000]
+        # フォールバック: body全体
+        body = soup.find("body")
+        return body.get_text(" ", strip=True)[:4000] if body else ""
+    except Exception:
+        return ""
+
+
 def summarize_excerpt(title: str, text: str) -> str:
-    """Gemini で本文を要約（英語→日本語翻訳も兼ねる）。失敗時はGoogle翻訳にフォールバック"""
+    """本文を日本語で5〜8文の詳細要約に。失敗時はGoogle翻訳にフォールバック"""
     if not text.strip():
         return text
 
@@ -292,20 +315,21 @@ def summarize_excerpt(title: str, text: str) -> str:
 
         if is_ja:
             prompt = (
-                "以下のMMA格闘技記事を自然な日本語で元の70〜80%程度に要約してください。"
-                "箇条書きにせず、文章のまま書いてください。\n\n" + text[:1500]
+                "以下のMMA格闘技記事を自然な日本語で5〜8文の詳細な要約にしてください。"
+                "重要な発言・事実・背景をすべて含め、箇条書きにせず文章で書いてください。\n\n"
+                + text[:3000]
             )
         else:
             prompt = (
-                "以下の英語MMA格闘技記事を日本語に翻訳し、元の70〜80%程度に要約してください。"
-                "箇条書きにせず、自然な日本語の文章で書いてください。\n\n"
-                f"タイトル: {title}\n{text[:1500]}"
+                "以下の英語MMA格闘技記事を日本語に翻訳し、5〜8文の詳細な要約を書いてください。"
+                "重要な発言・事実・背景をすべて含め、箇条書きにせず自然な日本語の文章で書いてください。\n\n"
+                f"タイトル: {title}\n{text[:3000]}"
             )
         try:
             resp = GROQ_CLIENT.chat.completions.create(
                 model=GROQ_MODEL,
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=800,
+                max_tokens=1200,
             )
             time.sleep(0.3)
             return resp.choices[0].message.content.strip()
@@ -408,10 +432,12 @@ def collect_news() -> None:
         d = article["date"]
         if daily_count[d] + existing_by_date.get(d, 0) >= MAX_PER_DAY:
             continue
-        # タイトル・本文を日本語に翻訳
-        print(f"  翻訳中: [{score}点] {article['title'][:50]}")
+        # 記事URLから全文取得 → Groqで詳細要約
+        print(f"  要約中: [{score}点] {article['title'][:50]}")
+        full_body = fetch_article_body(article["source_url"])
+        body_text = full_body if len(full_body) > len(article["excerpt"]) else article["excerpt"]
         article["title"]   = translate_title(article["title"])
-        article["excerpt"] = summarize_excerpt(article["title"], article["excerpt"])
+        article["excerpt"] = summarize_excerpt(article["title"], body_text)
         del article["_score"]
         new_articles.append(article)
         existing_ids.add(article["id"])
