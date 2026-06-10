@@ -454,7 +454,7 @@ UFC_FN_TIME  = "09:00"
 # ============================================================
 JP_WATCH_DEFAULTS = {
     "ufc":   ["unext"],
-    "rizin": ["rizin-live", "abema"],
+    "rizin": ["rizin-live", "abema", "unext"],
     "one":   ["one-fc", "abema"],
 }
 
@@ -469,69 +469,73 @@ _REQ_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 def detect_watch_jp() -> dict:
     """
-    各放送サイトをスクレイピングして日本向け視聴サービスを自動検出。
+    日本語Wikipediaの放送・配信セクションから視聴サービスを自動検出。
     取得失敗時は JP_WATCH_DEFAULTS にフォールバック。
     """
+    WIKI_SOURCES = {
+        "ufc":   "https://ja.wikipedia.org/wiki/UFC",
+        "rizin": "https://ja.wikipedia.org/wiki/RIZIN",
+        "one":   "https://ja.wikipedia.org/wiki/ONE_Championship",
+    }
+    # キーワード → watch ID（優先度順に記述）
+    SERVICE_KEYWORDS = [
+        ("u-next",        "unext"),
+        ("unext",         "unext"),
+        ("rizin live",    "rizin-live"),
+        ("live.rizinff",  "rizin-live"),
+        ("abema",         "abema"),
+        ("wowow",         "wowow"),
+        ("ufc fight pass","ufc-fp"),
+        ("one fc+",       "one-fc"),
+        ("one fc ",       "one-fc"),
+        ("amazon prime",  "amazon"),
+    ]
+
     result = {k: list(v) for k, v in JP_WATCH_DEFAULTS.items()}
 
-    # ── UFC: U-NEXTのUFCページでコンテンツ有無を確認 ──────────────
-    try:
-        r = requests.get("https://video.unext.jp/genre/sports/mma",
-                         headers=_REQ_HEADERS, timeout=12)
-        text = r.text.lower()
-        services = []
-        if "ufc" in text:
-            services.append("unext")
-        # UFC Fight Passへのリンクがあれば追加
-        if "ufcfightpass" in text:
-            services.append("ufc-fp")
-        if services:
-            result["ufc"] = services
-            print(f"  UFC視聴サービス検出: {services}")
-        else:
-            print(f"  UFC視聴: U-NEXTにUFCコンテンツ確認できず → デフォルト {JP_WATCH_DEFAULTS['ufc']}")
-    except Exception as e:
-        print(f"  UFC視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['ufc']}")
+    for cat, url in WIKI_SOURCES.items():
+        try:
+            r = requests.get(url, headers=WIKI_HEADERS, timeout=12)
+            r.raise_for_status()
+            soup = BeautifulSoup(r.text, "html.parser")
+            body = soup.find("div", class_="mw-parser-output")
+            full = body.get_text(" ", strip=True) if body else r.text
 
-    # ── RIZIN: 公式サイトからストリーミングサービスを検出 ──────────
-    try:
-        r = requests.get("https://rizinff.com/", headers=_REQ_HEADERS, timeout=12)
-        soup = BeautifulSoup(r.text, "html.parser")
-        text = soup.get_text(" ", strip=True).lower()
-        services = []
-        if "rizin live" in text or "live.rizinff" in text:
-            services.append("rizin-live")
-        if "abema" in text:
-            services.append("abema")
-        if "wowow" in text:
-            services.append("wowow")
-        if "amazon" in text or "prime video" in text:
-            services.append("amazon")
-        if services:
-            result["rizin"] = services
-            print(f"  RIZIN視聴サービス検出: {services}")
-        else:
-            print(f"  RIZIN視聴: サービス検出できず → デフォルト {JP_WATCH_DEFAULTS['rizin']}")
-    except Exception as e:
-        print(f"  RIZIN視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['rizin']}")
+            # 「日本での放送・配信」セクションを抽出
+            # 「終了した放送」以降は除外（過去の放送局を除くため）
+            broadcast_markers = ["日本での放送", "放送・配信", "配信サービス"]
+            end_markers       = ["終了した放送", "過去の放送", "かつての放送"]
 
-    # ── ONE: 公式サイトからストリーミングサービスを検出 ─────────────
-    # ONE FC+は自社プラットフォームなので常に含める
-    try:
-        r = requests.get("https://www.onefc.com/events/",
-                         headers=_REQ_HEADERS, timeout=12)
-        soup = BeautifulSoup(r.text, "html.parser")
-        text = soup.get_text(" ", strip=True).lower()
-        services = ["one-fc"]  # ONE FC+は常に利用可能
-        if "abema" in text:
-            services.append("abema")
-        if "unext" in text or "u-next" in text:
-            services.append("unext")
-        # Amazonはワールドワイド配信なのでONEページに出てきても日本では別扱い
-        result["one"] = services
-        print(f"  ONE視聴サービス検出: {services}")
-    except Exception as e:
-        print(f"  ONE視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS['one']}")
+            section = full
+            for bm in broadcast_markers:
+                idx = full.find(bm)
+                if idx != -1:
+                    section = full[idx:]
+                    break
+            for em in end_markers:
+                idx = section.find(em)
+                if idx != -1:
+                    section = section[:idx]
+                    break
+
+            text = section.lower()
+
+            seen, detected = set(), []
+            for kw, svc_id in SERVICE_KEYWORDS:
+                if kw in text and svc_id not in seen:
+                    detected.append(svc_id)
+                    seen.add(svc_id)
+            # ONE FC+は自社プラットフォームなので常に含める
+            if cat == "one" and "one-fc" not in seen:
+                detected.insert(0, "one-fc")
+
+            if detected:
+                result[cat] = detected
+                print(f"  {cat.upper()}視聴サービス検出 (Wikipedia): {detected}")
+            else:
+                print(f"  {cat.upper()}視聴: Wikipediaから検出できず → デフォルト {JP_WATCH_DEFAULTS[cat]}")
+        except Exception as e:
+            print(f"  {cat.upper()}視聴検出失敗({e}) → デフォルト {JP_WATCH_DEFAULTS[cat]}")
 
     return result
 

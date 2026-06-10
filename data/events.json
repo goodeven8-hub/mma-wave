@@ -31,7 +31,7 @@
     "matchup": "",
     "venue": "Ball Arena",
     "watch": [
-      "amazon"
+      "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
   },
@@ -55,7 +55,7 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "amazon"
+      "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
   },
@@ -79,6 +79,7 @@
     "matchup": "",
     "venue": "Hiroshima Prefectural Sports Center",
     "watch": [
+      "unext",
       "rizin-live",
       "abema"
     ],
@@ -140,7 +141,7 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "amazon"
+      "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
   },
@@ -152,6 +153,7 @@
     "matchup": "",
     "venue": "Toyota Arena Tokyo",
     "watch": [
+      "unext",
       "rizin-live",
       "abema"
     ],
@@ -201,7 +203,7 @@
     "matchup": "",
     "venue": "Lumpinee Boxing Stadium",
     "watch": [
-      "amazon"
+      "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
   }
