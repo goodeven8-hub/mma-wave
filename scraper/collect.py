@@ -687,6 +687,31 @@ def collect_ufc_times(events: list) -> list:
     return events
 
 
+def build_event_url(cat: str, name: str) -> str:
+    """
+    イベント名からWikipedia/公式URLを生成。
+    RIZIN: 日本語Wikipedia, ONE Fight Night: 英語Wikipedia, それ以外: 公式トップ
+    """
+    n = name.strip()
+
+    if cat == "rizin":
+        m = re.search(r"Landmark\s+(\d+)", n, re.IGNORECASE)
+        if m:
+            return f"https://ja.wikipedia.org/wiki/RIZIN_LANDMARK_{m.group(1)}"
+        m = re.search(r"Rizin\s+(\d+)", n, re.IGNORECASE)
+        if m:
+            return f"https://ja.wikipedia.org/wiki/RIZIN.{m.group(1)}"
+        return JP_ORG_URLS["rizin"]
+
+    if cat == "one":
+        m = re.search(r"ONE\s+Fight\s+Night\s+(\d+)", n, re.IGNORECASE)
+        if m:
+            return f"https://en.wikipedia.org/wiki/ONE_Fight_Night_{m.group(1)}"
+        return JP_ORG_URLS["one"]
+
+    return JP_ORG_URLS.get(cat, "")
+
+
 def collect_events() -> None:
     print("\n[EVENTS] Wikipedia スクレイピング（UFC/RIZIN/ONE）...")
 
@@ -711,9 +736,8 @@ def collect_events() -> None:
         cat="rizin", watch=watch_jp["rizin"], time_default="17:00",
     )
     print(f"  RIZIN (Wikipedia): {len(rizin)} 件")
-    # RIZINはデフォルトURLを設定
     for e in rizin:
-        e.setdefault("url", JP_ORG_URLS["rizin"])
+        e["url"] = build_event_url("rizin", e["name"])
     all_events.extend(rizin)
 
     # ONE Championship
@@ -723,7 +747,7 @@ def collect_events() -> None:
     )
     print(f"  ONE (Wikipedia): {len(one)} 件")
     for e in one:
-        e.setdefault("url", JP_ORG_URLS["one"])
+        e["url"] = build_event_url("one", e["name"])
     all_events.extend(one)
 
     # UFC に UFC公式から matchup・時刻・URLを補完
