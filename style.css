@@ -610,7 +610,7 @@ body.dark .def-badge.def-gold {
   display: flex;
   flex-direction: column;
   gap: 0;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 0 0 28px;
 }
 .article-modal-badge {
@@ -638,7 +638,9 @@ body.dark .def-badge.def-gold {
   color: var(--text2);
   line-height: 1.85;
   white-space: pre-wrap;
-  min-height: 100px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   padding: 0 28px 16px;
 }
 .article-modal-source {
