@@ -883,6 +883,127 @@ def scrape_ufc_rankings() -> dict:
     return {"men": men, "women": women, "p4p_men": p4p_men, "p4p_women": p4p_women} if total else {}
 
 
+RIZIN_WEIGHT_EN_TO_JA = {
+    "heavyweight":             "ヘビー級",
+    "light heavyweight":       "ライトヘビー級",
+    "middleweight":            "ミドル級",
+    "lightweight":             "ライト級",
+    "featherweight":           "フェザー級",
+    "bantamweight":            "バンタム級",
+    "flyweight":               "フライ級",
+    "women's super atomweight":"女子スーパーアトム級",
+    "women's atomweight":      "女子アトム級",
+    "women's strawweight":     "女子ストロー級",
+}
+MONTH_EN_TO_NUM = {
+    "january":1,"february":2,"march":3,"april":4,"may":5,"june":6,
+    "july":7,"august":8,"september":9,"october":10,"november":11,"december":12,
+    "jan":1,"feb":2,"mar":3,"apr":4,"jun":6,"jul":7,"aug":8,
+    "sep":9,"oct":10,"nov":11,"dec":12,
+}
+
+
+def scrape_rizin_champions() -> list:
+    """英語WikipediaのRIZINページからチャンピオンテーブルを取得"""
+    url = "https://en.wikipedia.org/wiki/Rizin_Fighting_Federation"
+    try:
+        resp = requests.get(url, headers=WIKI_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ✗ RIZIN Wikipedia取得失敗: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    result = []
+
+    for table in soup.select("table.wikitable"):
+        ths = [th.get_text(" ", strip=True).lower() for th in table.select("th")]
+        # 階級・選手名・防衛回数のカラムがあるテーブルを探す
+        if not any("division" in h or "weight" in h for h in ths):
+            continue
+        if not any("champion" in h or "fighter" in h for h in ths):
+            continue
+
+        # ヘッダー列のインデックスを特定
+        header_row = table.select_one("tr")
+        if not header_row:
+            continue
+        headers = [th.get_text(" ", strip=True).lower() for th in header_row.select("th")]
+
+        col_div, col_champ, col_since, col_def = -1, -1, -1, -1
+        for i, h in enumerate(headers):
+            if "division" in h or "weight" in h:
+                col_div = i
+            elif "champion" in h or "fighter" in h:
+                col_champ = i
+            elif "since" in h or "reign" in h or "date" in h:
+                col_since = i
+            elif "defense" in h or "def" in h:
+                col_def = i
+
+        if col_div < 0 or col_champ < 0:
+            continue
+
+        for row in table.select("tr")[1:]:
+            cells = row.select("td")
+            if not cells or len(cells) <= max(col_div, col_champ):
+                continue
+
+            div_raw = cells[col_div].get_text(" ", strip=True).lower() if col_div < len(cells) else ""
+            champ_raw = cells[col_champ].get_text(" ", strip=True) if col_champ < len(cells) else ""
+
+            # Vacantはスキップ
+            if not champ_raw or "vacant" in champ_raw.lower() or "empty" in champ_raw.lower():
+                continue
+
+            # 括弧内の国籍を除去
+            champ_name = re.sub(r"\s*\([^)]+\)\s*$", "", champ_raw).strip()
+
+            # 英語階級名を日本語に変換
+            weight_ja = ""
+            for en_key, ja_val in RIZIN_WEIGHT_EN_TO_JA.items():
+                if en_key in div_raw:
+                    weight_ja = ja_val
+                    break
+            if not weight_ja:
+                continue  # 不明な階級はスキップ
+
+            # 戴冠日
+            since_str = ""
+            if col_since >= 0 and col_since < len(cells):
+                raw_date = cells[col_since].get_text(" ", strip=True)
+                # "May 4, 2025" → "2025年5月4日"
+                m = re.search(r"(\w+)\s+(\d{1,2}),?\s+(\d{4})", raw_date)
+                if m:
+                    mon = MONTH_EN_TO_NUM.get(m.group(1).lower(), 0)
+                    if mon:
+                        since_str = f"{m.group(3)}年{mon}月{m.group(2)}日"
+
+            # 防衛回数
+            defenses = 0
+            if col_def >= 0 and col_def < len(cells):
+                def_text = cells[col_def].get_text(strip=True)
+                m2 = re.search(r"\d+", def_text)
+                if m2:
+                    defenses = int(m2.group())
+
+            result.append({
+                "weight":   weight_ja,
+                "name":     champ_name,
+                "since":    since_str,
+                "defenses": defenses,
+            })
+
+        if result:
+            break  # 最初に見つかったチャンピオンテーブルを使用
+
+    if result:
+        print(f"  RIZIN Wikipedia: {len(result)} 件取得")
+    else:
+        print("  ⚠ RIZIN Wikipediaからチャンピオン取得失敗")
+    return result
+
+
 def collect_champions() -> None:
     print("\n[CHAMPIONS] UFC.com/rankings スクレイピング...")
 
@@ -898,14 +1019,17 @@ def collect_champions() -> None:
         print("  ⚠ UFC取得失敗 — 既存データを保持")
         ufc_data = existing.get("ufc", {"men": [], "women": [], "p4p_men": [], "p4p_women": []})
 
+    rizin_data = scrape_rizin_champions()
+    if not rizin_data:
+        print("  ⚠ RIZIN取得失敗 — 既存データを保持")
+        rizin_data = existing.get("rizin") or RIZIN_CHAMPS_STATIC
+
     result = {
         "ufc":   ufc_data,
-        "rizin": existing.get("rizin", RIZIN_CHAMPS_STATIC),
+        "rizin": rizin_data,
         "one":   existing.get("one",   ONE_CHAMPS_STATIC),
     }
-    # rizin/one が既存データにない場合は静的データを書く
-    if not result["rizin"]:
-        result["rizin"] = RIZIN_CHAMPS_STATIC
+    # one が既存データにない場合は静的データを書く
     if not result["one"]:
         result["one"] = ONE_CHAMPS_STATIC
 

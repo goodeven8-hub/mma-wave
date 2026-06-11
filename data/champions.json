@@ -135,52 +135,28 @@
   },
   "rizin": [
     {
-      "weight": "ヘビー級",
-      "name": "バダ・ハリ",
-      "since": "2024年12月31日",
-      "defenses": 0
-    },
-    {
-      "weight": "ライトヘビー級",
-      "name": "ヴァレンティン・モルダフスキー",
-      "since": "2023年6月24日",
-      "defenses": 1
-    },
-    {
-      "weight": "ミドル級",
-      "name": "ジョニー・ケース",
-      "since": "2024年3月30日",
-      "defenses": 1
-    },
-    {
       "weight": "ライト級",
-      "name": "ホベルト・サトシ・ソウザ",
-      "since": "2025年3月29日",
+      "name": "Luiz Gustavo",
+      "since": "2026年5月10日",
       "defenses": 0
     },
     {
       "weight": "フェザー級",
-      "name": "クレベル・コイケ",
-      "since": "2024年6月9日",
-      "defenses": 2
+      "name": "Razhabali Shaydullaev",
+      "since": "2025年5月4日",
+      "defenses": 3
     },
     {
       "weight": "バンタム級",
-      "name": "朝倉 海",
-      "since": "2025年9月21日",
+      "name": "Danny Sabatello",
+      "since": "2025年12月31日",
       "defenses": 1
     },
     {
       "weight": "フライ級",
-      "name": "神龍 誠",
-      "since": "2024年6月9日",
-      "defenses": 1
-    },
-    {
-      "weight": "女子スーパーアトム級",
-      "name": "浜崎 朱加",
-      "since": "2023年9月24日",
-      "defenses": 2
+      "name": "Makoto Takahashi",
+      "since": "2026年6月6日",
+      "defenses": 0
     }
   ],
   "one": [

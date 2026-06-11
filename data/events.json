@@ -173,9 +173,21 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-08-29",
+    "date": "2026-08-22",
     "time": "",
     "name": "UFC Fight Night 285",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": null
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-29",
+    "time": "",
+    "name": "UFC Fight Night 286",
     "matchup": "",
     "venue": "Shanghai Indoor Stadium",
     "watch": [
@@ -187,7 +199,7 @@
     "cat": "ufc",
     "date": "2026-09-05",
     "time": "",
-    "name": "UFC Fight Night 286",
+    "name": "UFC Fight Night 287",
     "matchup": "",
     "venue": "Accor Arena",
     "watch": [
