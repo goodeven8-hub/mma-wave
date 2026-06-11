@@ -709,7 +709,7 @@ def collect_ufc_times(events: list) -> list:
                 e["url"]     = d["url"]
                 break
         if "url" not in e:
-            e["url"] = JP_ORG_URLS["ufc"]
+            e["url"] = None
     return events
 
 
