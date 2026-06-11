@@ -26,18 +26,18 @@ const AFFILIATE_BANNERS = {
   ufc: `
     <div class="aff-label">UFC を観るなら</div>
     <div class="aff-row">
-      <a class="aff-btn unext" href="https://video.unext.jp/genre/sports/mma" target="_blank" rel="noopener">U-NEXT で観る</a>
+      <a class="aff-btn unext" href="https://video.unext.jp/" target="_blank" rel="noopener">U-NEXT で観る</a>
     </div>`,
   rizin: `
     <div class="aff-label">RIZIN を観るなら</div>
     <div class="aff-row">
-      <a class="aff-btn rizin-live" href="https://live.rizinff.com/?utm_source=mmawave" target="_blank" rel="noopener">RIZIN LIVE で観る</a>
-      <a class="aff-btn abema" href="https://abema.tv/search?q=RIZIN&utm_source=mmawave" target="_blank" rel="noopener">ABEMA で観る</a>
+      <a class="aff-btn rizin-live" href="https://www.rizin.tv/" target="_blank" rel="noopener">RIZIN LIVE で観る</a>
+      <a class="aff-btn abema" href="https://abema.tv/search?q=RIZIN" target="_blank" rel="noopener">ABEMA で観る</a>
     </div>`,
   one: `
     <div class="aff-label">ONE Championship を観るなら</div>
     <div class="aff-row">
-      <a class="aff-btn one-fc" href="https://www.onefc.com/plus/?utm_source=mmawave" target="_blank" rel="noopener">ONE FC+ で観る</a>
+      <a class="aff-btn one-fc" href="https://watch.onefc.com/" target="_blank" rel="noopener">ONE FC+ で観る</a>
     </div>`,
 };
 
