@@ -478,6 +478,18 @@ function renderChampions(data) {
     p4pEl.innerHTML = `<div class="p4p-cols">${col(menP4p,'男子 P4P')}${col(womenP4p,'女子 P4P')}</div>`;
   }
 
+  // RIZIN モーダル表
+  const rizinTbody = document.querySelector('.modal-content[data-org="rizin"] tbody');
+  if (rizinTbody && data.rizin?.length) {
+    rizinTbody.innerHTML = data.rizin.map(champRow).join('');
+  }
+
+  // ONE モーダル表
+  const oneTbody = document.querySelector('.modal-content[data-org="one"] tbody');
+  if (oneTbody && data.one?.length) {
+    oneTbody.innerHTML = data.one.map(champRow).join('');
+  }
+
   // サイドバー更新
   const sidebarTable = document.getElementById('champSidebarTable');
   if (sidebarTable) {
@@ -502,9 +514,9 @@ calYear   = now.getFullYear();
 calMonth  = now.getMonth();
 
 Promise.all([
-  fetch('data/events.json').then(r => r.json()).catch(() => []),
-  fetch('data/news.json').then(r => r.json()).catch(() => []),
-  fetch('data/champions.json').then(r => r.json()).catch(() => null),
+  fetch('data/events.json',    { cache: 'no-store' }).then(r => r.json()).catch(() => []),
+  fetch('data/news.json',      { cache: 'no-store' }).then(r => r.json()).catch(() => []),
+  fetch('data/champions.json', { cache: 'no-store' }).then(r => r.json()).catch(() => null),
 ]).then(([eventsData, newsData, champsData]) => {
   EVENTS  = eventsData;
   allNews = newsData;

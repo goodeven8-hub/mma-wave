@@ -884,8 +884,8 @@ def scrape_ufc_rankings() -> dict:
 
 
 RIZIN_WEIGHT_EN_TO_JA = {
-    "heavyweight":             "ヘビー級",
     "light heavyweight":       "ライトヘビー級",
+    "heavyweight":             "ヘビー級",
     "middleweight":            "ミドル級",
     "lightweight":             "ライト級",
     "featherweight":           "フェザー級",
@@ -904,6 +904,63 @@ MONTH_EN_TO_NUM = {
 
 
 def scrape_rizin_champions() -> list:
+    """日本語WikipediaのRIZINページから王者テーブルを取得（戴冠日は英語版で補完）"""
+    url = "https://ja.wikipedia.org/wiki/RIZIN_FIGHTING_FEDERATION"
+    try:
+        resp = requests.get(url, headers=WIKI_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ✗ RIZIN 日本語Wikipedia取得失敗: {e}")
+        return _scrape_rizin_champions_en()
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    result = []
+
+    for table in soup.select("table.wikitable"):
+        rows = table.select("tr")
+        if not rows:
+            continue
+        headers = [th.get_text(" ", strip=True) for th in rows[0].select("th")]
+        if "王者" not in headers or "階級" not in headers:
+            continue
+
+        col_div   = headers.index("階級")
+        col_champ = headers.index("王者")
+        col_def   = headers.index("防衛回数") if "防衛回数" in headers else -1
+
+        for row in rows[1:]:
+            cells = row.select("td")
+            if len(cells) <= max(col_div, col_champ):
+                continue
+            weight = re.sub(r"\s+", "", cells[col_div].get_text(" ", strip=True))
+            name   = cells[col_champ].get_text(" ", strip=True)
+            if not name or name in ("空位", "-", "–"):
+                continue
+            defenses = 0
+            if 0 <= col_def < len(cells):
+                m = re.search(r"\d+", cells[col_def].get_text(strip=True))
+                if m:
+                    defenses = int(m.group())
+            result.append({"weight": weight, "name": name,
+                           "since": "", "defenses": defenses})
+        if result:
+            break
+
+    if not result:
+        print("  ⚠ RIZIN 日本語Wikipediaから王者取得失敗 — 英語版にフォールバック")
+        return _scrape_rizin_champions_en()
+
+    # 戴冠日を英語版からマージ（階級でマッチ）
+    en_data = _scrape_rizin_champions_en()
+    since_by_weight = {c["weight"]: c["since"] for c in en_data if c.get("since")}
+    for c in result:
+        c["since"] = since_by_weight.get(c["weight"], "")
+
+    print(f"  RIZIN 日本語Wikipedia: {len(result)} 件取得")
+    return result
+
+
+def _scrape_rizin_champions_en() -> list:
     """英語WikipediaのRIZINページからチャンピオンテーブルを取得"""
     url = "https://en.wikipedia.org/wiki/Rizin_Fighting_Federation"
     try:
