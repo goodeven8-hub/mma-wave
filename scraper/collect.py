@@ -1061,6 +1061,274 @@ def _scrape_rizin_champions_en() -> list:
     return result
 
 
+def _en_date_to_ja(raw: str) -> str:
+    """'May 4, 2025' / 'Jun 21, 2025' → '2025年5月4日'"""
+    m = re.search(r"(\w+)\s+(\d{1,2}),?\s+(\d{4})", raw)
+    if m:
+        mon = MONTH_EN_TO_NUM.get(m.group(1).lower(), 0)
+        if mon:
+            return f"{m.group(3)}年{mon}月{int(m.group(2))}日"
+    return ""
+
+
+def _table_grid(table) -> list:
+    """wikitableを rowspan/colspan 展開してテキストの2次元グリッドにする"""
+    grid = []
+    pending = {}  # col -> [text, remaining_rows]
+    for tr in table.select("tr"):
+        cells = tr.find_all(["th", "td"])
+        row, col, ci = [], 0, 0
+        while ci < len(cells) or col in pending:
+            if col in pending:
+                text, rem = pending[col]
+                row.append(text)
+                if rem > 1:
+                    pending[col] = (text, rem - 1)
+                else:
+                    del pending[col]
+                col += 1
+                continue
+            c = cells[ci]; ci += 1
+            text = c.get_text(" ", strip=True)
+            try:
+                rs = int(c.get("rowspan", 1))
+            except (TypeError, ValueError):
+                rs = 1
+            try:
+                cs = int(c.get("colspan", 1))
+            except (TypeError, ValueError):
+                cs = 1
+            for _ in range(cs):
+                row.append(text)
+                if rs > 1:
+                    pending[col] = (text, rs - 1)
+                col += 1
+        grid.append(row)
+    return grid
+
+
+ONE_DISCIPLINE_JA = {
+    "総合格闘技":               "MMA",
+    "ムエタイ":                 "ムエタイ",
+    "キックボクシング":         "キック",
+    "サブミッショングラップリング": "グラップリング",
+}
+ONE_DISCIPLINE_EN = {
+    "mixed martial arts":   "MMA",
+    "muay thai":            "ムエタイ",
+    "kickboxing":           "キック",
+    "submission grappling": "グラップリング",
+}
+ONE_WEIGHT_EN_TO_JA = {
+    "light heavyweight": "ライトヘビー級",
+    "heavyweight":       "ヘビー級",
+    "middleweight":      "ミドル級",
+    "welterweight":      "ウェルター級",
+    "lightweight":       "ライト級",
+    "featherweight":     "フェザー級",
+    "bantamweight":      "バンタム級",
+    "flyweight":         "フライ級",
+    "strawweight":       "ストロー級",
+    "atomweight":        "アトム級",
+}
+
+
+def _scrape_one_since_en() -> dict:
+    """英語Wikipediaから (種目, 性別, 階級) → 戴冠日 の辞書を作る"""
+    url = "https://en.wikipedia.org/wiki/ONE_Championship"
+    try:
+        resp = requests.get(url, headers=WIKI_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ⚠ ONE 英語Wikipedia取得失敗: {e}")
+        return {}
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    since_map = {}
+
+    for table in soup.select("table.wikitable"):
+        rows = table.select("tr")
+        if not rows:
+            continue
+        headers = [th.get_text(" ", strip=True).lower() for th in rows[0].find_all(["th", "td"])]
+        if "division" not in headers or "champion" not in headers or "since" not in headers:
+            continue
+
+        # 現王者テーブルは caption が Men / Women（トーナメント表を除外）
+        caption = table.find("caption")
+        cap_text = caption.get_text(" ", strip=True).lower() if caption else ""
+        if cap_text.startswith("women"):
+            gender = "女子"
+        elif cap_text.startswith("men"):
+            gender = "男子"
+        else:
+            continue
+
+        col_div   = headers.index("division")
+        col_champ = headers.index("champion")
+        col_since = headers.index("since")
+        disc = ""
+        for row in _table_grid(table)[1:]:
+            # 種目セパレーター行（全セル同一テキスト）
+            uniq = set(row)
+            if len(uniq) == 1 and row:
+                d = row[0].lower()
+                disc = next((v for k, v in ONE_DISCIPLINE_EN.items() if k in d), disc)
+                continue
+            if len(row) <= max(col_div, col_champ, col_since) or not disc:
+                continue
+            if "vacant" in row[col_champ].lower():
+                continue
+            div_raw = row[col_div].lower()
+            weight_ja = next((v for k, v in ONE_WEIGHT_EN_TO_JA.items() if k in div_raw), "")
+            since = _en_date_to_ja(row[col_since])
+            if weight_ja and since:
+                since_map[(disc, gender, weight_ja)] = since
+
+    return since_map
+
+
+def scrape_one_champions() -> list:
+    """日本語WikipediaのONEページから全種目の王者を取得（戴冠日は英語版で補完）"""
+    url = "https://ja.wikipedia.org/wiki/ONE_Championship"
+    try:
+        resp = requests.get(url, headers=WIKI_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ✗ ONE 日本語Wikipedia取得失敗: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    result = []
+
+    for table in soup.select("table.wikitable"):
+        rows = table.select("tr")
+        if not rows:
+            continue
+        headers = [th.get_text(" ", strip=True) for th in rows[0].find_all(["th", "td"])]
+        if "王者" not in headers or "階級" not in headers:
+            continue
+
+        # 種目はテーブル直前の見出しから
+        prev = table.find_previous(re.compile("^h[2-4]$"))
+        heading = prev.get_text(" ", strip=True) if prev else ""
+        disc = next((v for k, v in ONE_DISCIPLINE_JA.items() if k in heading), "")
+        if not disc:
+            continue
+
+        col_div   = headers.index("階級")
+        col_champ = headers.index("王者")
+        col_def   = headers.index("防衛回数") if "防衛回数" in headers else -1
+
+        gender = "男子"
+        for row in _table_grid(table)[1:]:
+            uniq = set(row)
+            if len(uniq) == 1 and row and row[0] in ("男子", "女子"):
+                gender = row[0]
+                continue
+            if len(row) <= max(col_div, col_champ):
+                continue
+            champ_raw = row[col_champ]
+            if "暫定" in champ_raw:          # 暫定王者はスキップ
+                continue
+            name = re.sub(r"（[^）]*）", "", champ_raw).strip()
+            if not name or name in ("空位", "-", "–"):
+                continue
+            weight = re.sub(r"\s+", "", row[col_div])
+            defenses = 0
+            if 0 <= col_def < len(row):
+                m = re.search(r"\d+", row[col_def])
+                if m:
+                    defenses = int(m.group())
+            result.append({
+                "_key":     (disc, gender, weight),
+                "weight":   ("女子" if gender == "女子" else "") + f"{weight} {disc}",
+                "name":     name,
+                "since":    "",
+                "defenses": defenses,
+            })
+
+    if not result:
+        print("  ⚠ ONE 日本語Wikipediaから王者取得失敗")
+        return []
+
+    # 戴冠日を英語版からマージ
+    since_map = _scrape_one_since_en()
+    for c in result:
+        c["since"] = since_map.get(c.pop("_key"), "")
+
+    print(f"  ONE 日本語Wikipedia: {len(result)} 件取得")
+    return result
+
+
+UFC_WEIGHT_EN_TO_JA = {
+    "light heavyweight": "ライトヘビー級",
+    "heavyweight":       "ヘビー級",
+    "middleweight":      "ミドル級",
+    "welterweight":      "ウェルター級",
+    "lightweight":       "ライト級",
+    "featherweight":     "フェザー級",
+    "bantamweight":      "バンタム級",
+    "flyweight":         "フライ級",
+    "strawweight":       "ストロー級",
+}
+
+
+def scrape_ufc_reign_info() -> dict:
+    """英語Wikipedia List_of_UFC_champions から 階級(日本語) → {since, defenses}"""
+    url = "https://en.wikipedia.org/wiki/List_of_UFC_champions"
+    try:
+        resp = requests.get(url, headers=WIKI_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ⚠ UFC 英語Wikipedia取得失敗: {e}")
+        return {}
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    info = {}
+
+    for table in soup.select("table.wikitable"):
+        rows = table.select("tr")
+        if not rows:
+            continue
+        headers = [th.get_text(" ", strip=True).lower() for th in rows[0].find_all(["th", "td"])]
+        if not ("division" in headers and "champion" in headers and "since" in headers):
+            continue
+        # 現王者テーブルのみ（Men/Women 見出し直下）
+        prev = table.find_previous(re.compile("^h[2-4]$"))
+        heading = prev.get_text(" ", strip=True).lower() if prev else ""
+        if heading.startswith("women"):
+            prefix = "女子"
+        elif heading.startswith("men"):
+            prefix = ""
+        else:
+            continue
+
+        col_div   = headers.index("division")
+        col_since = headers.index("since")
+        col_def   = headers.index("defenses") if "defenses" in headers else -1
+
+        for row in _table_grid(table)[1:]:
+            if len(row) <= max(col_div, col_since):
+                continue
+            div_raw = row[col_div].lower()
+            weight_ja = next((v for k, v in UFC_WEIGHT_EN_TO_JA.items() if k in div_raw), "")
+            if not weight_ja:
+                continue
+            since = _en_date_to_ja(row[col_since])
+            defenses = 0
+            if 0 <= col_def < len(row):
+                m = re.search(r"\d+", row[col_def])
+                if m:
+                    defenses = int(m.group())
+            if since:
+                info[prefix + weight_ja] = {"since": since, "defenses": defenses}
+
+    if info:
+        print(f"  UFC 英語Wikipedia: 戴冠日 {len(info)} 件取得")
+    return info
+
+
 def collect_champions() -> None:
     print("\n[CHAMPIONS] UFC.com/rankings スクレイピング...")
 
@@ -1076,19 +1344,30 @@ def collect_champions() -> None:
         print("  ⚠ UFC取得失敗 — 既存データを保持")
         ufc_data = existing.get("ufc", {"men": [], "women": [], "p4p_men": [], "p4p_women": []})
 
+    # 戴冠日・防衛回数を英語Wikipediaからマージ
+    reign_info = scrape_ufc_reign_info()
+    if reign_info:
+        for c in ufc_data.get("men", []) + ufc_data.get("women", []):
+            r = reign_info.get(c["weight"])
+            if r:
+                c["since"]    = r["since"]
+                c["defenses"] = r["defenses"]
+
     rizin_data = scrape_rizin_champions()
     if not rizin_data:
         print("  ⚠ RIZIN取得失敗 — 既存データを保持")
         rizin_data = existing.get("rizin") or RIZIN_CHAMPS_STATIC
 
+    one_data = scrape_one_champions()
+    if not one_data:
+        print("  ⚠ ONE取得失敗 — 既存データを保持")
+        one_data = existing.get("one") or ONE_CHAMPS_STATIC
+
     result = {
         "ufc":   ufc_data,
         "rizin": rizin_data,
-        "one":   existing.get("one",   ONE_CHAMPS_STATIC),
+        "one":   one_data,
     }
-    # one が既存データにない場合は静的データを書く
-    if not result["one"]:
-        result["one"] = ONE_CHAMPS_STATIC
 
     save_json(CHAMPS_FILE, result)
 
