@@ -14,6 +14,16 @@ const WATCH_LABELS = {
   'one-fc':    { label:'ONE FC+',        cls:'one-fc' },
   'wowow':     { label:'WOWOW',          cls:'wowow' },
 };
+const WATCH_URLS = {
+  'unext':     'https://video.unext.jp/',
+  'ufc-fp':    'https://www.ufc.com/fightpass',
+  'amazon':    'https://www.amazon.co.jp/primevideo',
+  'rizin-live':'https://www.rizin.tv/',
+  'abema':     'https://abema.tv/search?q=RIZIN',
+  'tbs':       'https://www.tbs.co.jp/',
+  'one-fc':    'https://watch.onefc.com/',
+  'wowow':     'https://www.wowow.co.jp/',
+};
 
 const ORG_BADGE = {
   ufc:   'ufc-badge',
@@ -108,6 +118,10 @@ function renderEvents() {
     const dayLabel = days === 0 ? '今日' : days === 1 ? '明日' : `${days}日後`;
     const watches  = e.watch.map(w => {
       const wl = WATCH_LABELS[w] || { label:w, cls:'' };
+      const wu = WATCH_URLS[w];
+      if (wu) {
+        return `<a class="watch-chip ${wl.cls}" href="${wu}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${wl.label}</a>`;
+      }
       return `<span class="watch-chip ${wl.cls}">${wl.label}</span>`;
     }).join('');
     const featured = i === 0 && !eventsExpanded ? 'featured-card' : '';
@@ -121,7 +135,7 @@ function renderEvents() {
         </div>
         <div class="event-name">${e.name}</div>
         <div class="event-matchup">${e.matchup}</div>
-        <div class="event-date-row">📆 ${dateStr}(${dow})　🕐 ${e.time || '?'} JST　📍 ${e.venue}</div>
+        <div class="event-date-row">📆 ${dateStr}(${dow})　🕐 ${e.time || '?'} JST<br>📍 ${e.venue}</div>
         <div class="event-watch-row">${watches}</div>
       </div>`;
   }).join('');
