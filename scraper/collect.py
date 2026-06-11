@@ -270,7 +270,10 @@ def translate(text: str, max_len: int = 400) -> str:
 
 
 def translate_title(text: str) -> str:
-    """タイトル専用：翻訳→体言止め短縮"""
+    """タイトル専用：翻訳→体言止め短縮（元から日本語の見出しはそのまま使う）"""
+    ja_ratio = sum(1 for c in text if '　' <= c <= '鿿') / max(len(text), 1)
+    if ja_ratio > 0.3:
+        return text.strip()
     translated = translate(text, max_len=200)
     return shorten_title(translated)
 
@@ -400,56 +403,62 @@ def scrape_mmajunkie_entries() -> list:
 
 
 def scrape_sportsnavi_entries() -> list:
-    """スポーツナビの格闘技ニュース一覧から RIZIN / ONE 関連記事を取得"""
-    url = "https://sports.yahoo.co.jp/list/news/fight?genre=fight"
-    try:
-        resp = requests.get(url, headers=_REQ_HEADERS, timeout=15)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"  ✗ スポーツナビ: {e}")
-        return []
+    """スポーツナビの格闘技ニュース一覧から RIZIN / ONE 関連記事を取得
+    （1ページ＝最新約20件のため、日付フィルタで過去7日分を巡回）"""
+    base = "https://sports.yahoo.co.jp/list/news/fight?genre=fight"
+    soups = []
+    for days_ago in range(7):
+        d = (NOW - timedelta(days=days_ago)).strftime("%Y-%m-%d")
+        url = base if days_ago == 0 else f"{base}&date={d}"
+        try:
+            resp = requests.get(url, headers=_REQ_HEADERS, timeout=15)
+            resp.raise_for_status()
+            soups.append(BeautifulSoup(resp.text, "html.parser"))
+            time.sleep(0.5)
+        except Exception as e:
+            print(f"  ✗ スポーツナビ({d}): {e}")
 
-    soup = BeautifulSoup(resp.text, "html.parser")
     out, seen = [], set()
-    for a in soup.find_all("a", href=re.compile(r"news\.yahoo\.co\.jp/articles/")):
-        href = a["href"].split("?")[0]
-        if href in seen:
-            continue
-        seen.add(href)
+    for soup in soups:
+        for a in soup.find_all("a", href=re.compile(r"news\.yahoo\.co\.jp/articles/")):
+            href = a["href"].split("?")[0]
+            if href in seen:
+                continue
+            seen.add(href)
 
-        text  = a.get_text("\x1f", strip=True)
-        parts = [p.strip() for p in text.split("\x1f") if p.strip()]
-        if not parts:
-            continue
-        title = parts[0]
+            text  = a.get_text("\x1f", strip=True)
+            parts = [p.strip() for p in text.split("\x1f") if p.strip()]
+            if not parts:
+                continue
+            title = parts[0]
 
-        # 日時 例: 2026/6/11 21:38
-        m = re.search(r"(\d{4})/(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
-        if not m:
-            continue
-        dt = datetime(*(int(g) for g in m.groups()), tzinfo=JST)
+            # 日時 例: 2026/6/11 21:38
+            m = re.search(r"(\d{4})/(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
+            if not m:
+                continue
+            dt = datetime(*(int(g) for g in m.groups()), tzinfo=JST)
 
-        # RIZIN / ONE 関連のみ採用（プロレス・ボクシング等は除外）
-        up = title.upper()
-        if "RIZIN" in up or "ライジン" in title:
-            cat = "rizin"
-        elif re.search(r"(?<![A-Za-z])ONE(?![A-Za-z])", title) or "ONEチャンピオンシップ" in title:
-            cat = "one"
-        else:
-            continue
+            # RIZIN / ONE 関連のみ採用（プロレス・ボクシング等は除外）
+            up = title.upper()
+            if "RIZIN" in up or "ライジン" in title:
+                cat = "rizin"
+            elif re.search(r"(?<![A-Za-z])ONE(?![A-Za-z])", title) or "ONEチャンピオンシップ" in title:
+                cat = "one"
+            else:
+                continue
 
-        # 配信元媒体名（タイトル | 媒体名 | 日時 の構造）
-        source = parts[-2] if len(parts) >= 3 and re.search(r"\d{1,2}:\d{2}", parts[-1]) else "スポーツナビ"
+            # 配信元媒体名（タイトル | 媒体名 | 日時 の構造）
+            source = parts[-2] if len(parts) >= 3 and re.search(r"\d{1,2}:\d{2}", parts[-1]) else "スポーツナビ"
 
-        out.append({
-            "title":   title,
-            "link":    href,
-            "dt":      dt,
-            "summary": "",
-            "source":  source,
-            "cat":     cat,
-            "bonus":   3,  # 国内団体ニュースが英語圏スコアに埋もれないよう底上げ
-        })
+            out.append({
+                "title":   title,
+                "link":    href,
+                "dt":      dt,
+                "summary": "",
+                "source":  source,
+                "cat":     cat,
+                "bonus":   3,  # 国内団体ニュースが英語圏スコアに埋もれないよう底上げ
+            })
     print(f"  ✓ スポーツナビ(HTML): RIZIN/ONE {len(out)} 件")
     return out
 
