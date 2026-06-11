@@ -67,16 +67,10 @@ ONE_YEAR_AGO = NOW - timedelta(days=365)
 
 MAX_PER_DAY = 5  # 1日の最大記事数
 
-# RSS フィード
+# RSS フィード（海外団体ニュースは MMA Junkie / MMA Fighting の2サイト中心。
+# MMA Junkie はRSS廃止のためHTMLスクレイピング → scrape_mmajunkie_entries()）
 RSS_FEEDS = [
-    # 日本語メディア（優先）
-    {"url": "https://mmaplanet.jp/feed",                   "cat": "ufc",   "source": "MMAPLANET", "lang": "ja"},
-    {"url": "https://sadironman.seesaa.net/index.rdf",      "cat": "ufc",   "source": "鉄人ブログ",  "lang": "ja"},
-    # 英語メディア
-    {"url": "https://www.sherdog.com/rss/news.xml",         "cat": "ufc",  "source": "Sherdog",          "lang": "en"},
-    {"url": "https://www.bjpenn.com/feed/",                 "cat": "ufc",  "source": "BJPenn.com",        "lang": "en"},
-    {"url": "https://mmanews.com/feed/",                    "cat": "ufc",  "source": "MMA News",          "lang": "en"},
-    {"url": "https://www.onefc.com/feed/",                  "cat": "one",  "source": "ONE Championship",  "lang": "en"},
+    {"url": "https://www.mmafighting.com/rss/index.xml", "cat": "ufc", "source": "MMA Fighting", "lang": "en"},
 ]
 
 # 静的チャンピオンデータ（自動取得できない団体）
@@ -364,8 +358,102 @@ def save_json(path: Path, data) -> None:
 
 
 # ============================================================
-# ニュース収集（RSS + スコアリング + 翻訳）
+# ニュース収集（RSS + HTMLスクレイピング + スコアリング + 翻訳）
 # ============================================================
+def scrape_mmajunkie_entries() -> list:
+    """MMA Junkie はRSS廃止のためニュース一覧ページをスクレイピング"""
+    url = "https://mmajunkie.usatoday.com/category/news/"
+    try:
+        resp = requests.get(url, headers=_REQ_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ✗ MMA Junkie: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    seen = {}
+    for a in soup.find_all("a", href=True):
+        m = re.search(r"/story/.*?/(\d{4})/(\d{2})/(\d{2})/", a["href"])
+        if not m:
+            continue
+        href = a["href"].split("?")[0]
+        if href.startswith("/"):
+            href = "https://mmajunkie.usatoday.com" + href
+        if href in seen:
+            continue
+        title = a.get_text(" ", strip=True)
+        if len(title) < 15:  # ナビゲーション等を除外
+            continue
+        dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)),
+                      12, 0, tzinfo=JST)
+        seen[href] = {
+            "title":   title,
+            "link":    href,
+            "dt":      dt,
+            "summary": a.get("data-c-br", ""),
+            "source":  "MMA Junkie",
+            "cat":     "ufc",
+            "bonus":   0,
+        }
+    print(f"  ✓ MMA Junkie(HTML): {len(seen)} エントリ")
+    return list(seen.values())
+
+
+def scrape_sportsnavi_entries() -> list:
+    """スポーツナビの格闘技ニュース一覧から RIZIN / ONE 関連記事を取得"""
+    url = "https://sports.yahoo.co.jp/list/news/fight?genre=fight"
+    try:
+        resp = requests.get(url, headers=_REQ_HEADERS, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  ✗ スポーツナビ: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    out, seen = [], set()
+    for a in soup.find_all("a", href=re.compile(r"news\.yahoo\.co\.jp/articles/")):
+        href = a["href"].split("?")[0]
+        if href in seen:
+            continue
+        seen.add(href)
+
+        text  = a.get_text("\x1f", strip=True)
+        parts = [p.strip() for p in text.split("\x1f") if p.strip()]
+        if not parts:
+            continue
+        title = parts[0]
+
+        # 日時 例: 2026/6/11 21:38
+        m = re.search(r"(\d{4})/(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
+        if not m:
+            continue
+        dt = datetime(*(int(g) for g in m.groups()), tzinfo=JST)
+
+        # RIZIN / ONE 関連のみ採用（プロレス・ボクシング等は除外）
+        up = title.upper()
+        if "RIZIN" in up or "ライジン" in title:
+            cat = "rizin"
+        elif re.search(r"(?<![A-Za-z])ONE(?![A-Za-z])", title) or "ONEチャンピオンシップ" in title:
+            cat = "one"
+        else:
+            continue
+
+        # 配信元媒体名（タイトル | 媒体名 | 日時 の構造）
+        source = parts[-2] if len(parts) >= 3 and re.search(r"\d{1,2}:\d{2}", parts[-1]) else "スポーツナビ"
+
+        out.append({
+            "title":   title,
+            "link":    href,
+            "dt":      dt,
+            "summary": "",
+            "source":  source,
+            "cat":     cat,
+            "bonus":   3,  # 国内団体ニュースが英語圏スコアに埋もれないよう底上げ
+        })
+    print(f"  ✓ スポーツナビ(HTML): RIZIN/ONE {len(out)} 件")
+    return out
+
+
 def collect_news() -> None:
     print("\n[NEWS] RSS 収集開始...")
     existing     = load_json(NEWS_FILE)
@@ -422,6 +510,29 @@ def collect_news() -> None:
             }))
 
         print(f"  ✓ {feed_def['source']}: {len(feed.entries)} エントリ / 候補 {sum(1 for c in candidates if c[2]['source_name']==feed_def['source'])} 件")
+
+    # HTMLスクレイピングソース（MMA Junkie / スポーツナビ）
+    for entry in scrape_mmajunkie_entries() + scrape_sportsnavi_entries():
+        dt = entry["dt"]
+        if dt < ONE_YEAR_AGO:
+            continue
+        title    = entry["title"]
+        cat      = entry["cat"]
+        date_str = dt.strftime("%Y.%m.%d")
+        art_id   = f"{cat}-{slugify(title)}-{dt.strftime('%Y%m%d')}"
+        if art_id in existing_ids:
+            continue
+        score = importance_score(title, entry["summary"]) + entry["bonus"]
+        candidates.append((score, dt, {
+            "id":          art_id,
+            "cat":         cat,
+            "date":        date_str,
+            "title":       title,
+            "excerpt":     entry["summary"][:1500],
+            "source_url":  entry["link"],
+            "source_name": entry["source"],
+            "_score":      score,
+        }))
 
     # スコア降順でソートし、日付ごとに MAX_PER_DAY まで採用
     candidates.sort(key=lambda x: (-x[0], x[1]))  # score降順、同点は古い順
