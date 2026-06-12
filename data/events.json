@@ -218,5 +218,19 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "rizin",
+    "date": "2026-09-10",
+    "time": "17:00",
+    "name": "Super Rizin 5",
+    "matchup": "",
+    "venue": "Kyocera Dome Osaka",
+    "watch": [
+      "unext",
+      "rizin-live",
+      "abema"
+    ],
+    "url": "https://jp.rizinff.com/"
   }
 ]
