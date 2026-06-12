@@ -957,7 +957,7 @@ def scrape_ufc_rankings() -> dict:
         header_el = group.select_one(".view-grouping-header")
         if not header_el:
             continue
-        division = header_el.get_text(strip=True)
+        division_raw = header_el.get_text(strip=True)
 
         # チャンピオン名
         champ_el = (group.select_one("caption h5 a")
@@ -967,8 +967,17 @@ def scrape_ufc_rankings() -> dict:
         if not champ_name:
             continue
 
-        is_women = "女子" in division
-        is_p4p   = "ポンドフォーポンド" in division or "P4P" in division.upper()
+        is_women = "女子" in division_raw or "women" in division_raw.lower()
+        is_p4p   = ("ポンドフォーポンド" in division_raw or "P4P" in division_raw.upper()
+                    or "pound" in division_raw.lower())
+
+        # 英語・日本語どちらのページでもreign_infoと一致する日本語正規名に変換
+        if any(c > "Ā" for c in division_raw):
+            division = division_raw  # すでに日本語
+        else:
+            dl = division_raw.lower()
+            ja = next((v for k, v in UFC_WEIGHT_EN_TO_JA.items() if k in dl), "")
+            division = (("女子" if is_women else "") + ja) if ja else division_raw
 
         if is_p4p:
             # P4Pキャプションは1位と同じ選手なので、tbody行を1-10として使う
@@ -1421,6 +1430,9 @@ def scrape_ufc_reign_info() -> dict:
             if len(row) <= max(col_div, col_since):
                 continue
             div_raw = row[col_div].lower()
+            # 暫定王者（interim）はスキップ
+            if "interim" in div_raw or any("interim" in cell.lower() for cell in row):
+                continue
             weight_ja = next((v for k, v in UFC_WEIGHT_EN_TO_JA.items() if k in div_raw), "")
             if not weight_ja:
                 continue

@@ -2,61 +2,158 @@
   "ufc": {
     "men": [
       {
-        "weight": "Men's Pound-for-PoundTop Rank",
-        "name": "Islam Makhachev"
+        "weight": "フライ級",
+        "name": "ジョシュア・ヴァン",
+        "since": "2025年12月6日",
+        "defenses": 1
       },
       {
-        "weight": "Flyweight",
-        "name": "Joshua Van"
+        "weight": "バンタム級",
+        "name": "ピョートル・ ヤン",
+        "since": "2025年12月6日",
+        "defenses": 0
       },
       {
-        "weight": "Bantamweight",
-        "name": "Petr Yan"
+        "weight": "フェザー級",
+        "name": "アレクサンダー･ ヴォルカノフスキー",
+        "since": "2025年4月12日",
+        "defenses": 1
       },
       {
-        "weight": "Featherweight",
-        "name": "Alexander Volkanovski"
+        "weight": "ライト級",
+        "name": "イリア・トプリア",
+        "since": "2025年6月28日",
+        "defenses": 0
       },
       {
-        "weight": "Lightweight",
-        "name": "Ilia Topuria"
+        "weight": "ウェルター級",
+        "name": "イスラム・ マハチェフ",
+        "since": "2025年11月15日",
+        "defenses": 0
       },
       {
-        "weight": "Welterweight",
-        "name": "Islam Makhachev"
+        "weight": "ミドル級",
+        "name": "ショーン・ストリックランド",
+        "since": "2026年5月9日",
+        "defenses": 0
       },
       {
-        "weight": "Middleweight",
-        "name": "Sean Strickland"
+        "weight": "ライトヘビー級",
+        "name": "カーロス・アルバーグ",
+        "since": "2026年4月11日",
+        "defenses": 0
       },
       {
-        "weight": "Light Heavyweight",
-        "name": "Carlos Ulberg"
-      },
-      {
-        "weight": "Heavyweight",
-        "name": "Tom Aspinall"
-      },
-      {
-        "weight": "Women's Pound-for-PoundTop Rank",
-        "name": "Valentina Shevchenko"
-      },
-      {
-        "weight": "Women's Strawweight",
-        "name": "Mackenzie Dern"
-      },
-      {
-        "weight": "Women's Flyweight",
-        "name": "Valentina Shevchenko"
-      },
-      {
-        "weight": "Women's Bantamweight",
-        "name": "Kayla Harrison"
+        "weight": "ヘビー級",
+        "name": "トム・ アスピナル",
+        "since": "2025年6月21日",
+        "defenses": 0
       }
     ],
-    "women": [],
-    "p4p_men": [],
-    "p4p_women": []
+    "women": [
+      {
+        "weight": "女子ストロー級",
+        "name": "マッケンジー・ ダーン",
+        "since": "2025年10月25日",
+        "defenses": 0
+      },
+      {
+        "weight": "女子フライ級",
+        "name": "ヴァレンティナ・シェフチェンコ",
+        "since": "2024年9月14日",
+        "defenses": 2
+      },
+      {
+        "weight": "女子バンタム級",
+        "name": "ケイラ・ ハリソン",
+        "since": "2025年6月7日",
+        "defenses": 0
+      }
+    ],
+    "p4p_men": [
+      {
+        "rank": 1,
+        "name": "イスラム・ マハチェフ"
+      },
+      {
+        "rank": 2,
+        "name": "イリア・トプリア"
+      },
+      {
+        "rank": 3,
+        "name": "アレクサンダー･ ヴォルカノフスキー"
+      },
+      {
+        "rank": 4,
+        "name": "アレックス・ペレイラ"
+      },
+      {
+        "rank": 5,
+        "name": "ピョートル・ ヤン"
+      },
+      {
+        "rank": 6,
+        "name": "トム・ アスピナル"
+      },
+      {
+        "rank": 7,
+        "name": "メラブ・ ドバリシビリ"
+      },
+      {
+        "rank": 8,
+        "name": "ショーン・ストリックランド"
+      },
+      {
+        "rank": 9,
+        "name": "ジョシュア・ヴァン"
+      },
+      {
+        "rank": 10,
+        "name": "ハムザト・チマエフ"
+      }
+    ],
+    "p4p_women": [
+      {
+        "rank": 1,
+        "name": "ヴァレンティナ・シェフチェンコ"
+      },
+      {
+        "rank": 2,
+        "name": "ケイラ・ ハリソン"
+      },
+      {
+        "rank": 3,
+        "name": "ジャン・ウェイリー"
+      },
+      {
+        "rank": 4,
+        "name": "ナタリア・ シウバ"
+      },
+      {
+        "rank": 5,
+        "name": "マノン・ フィオロ"
+      },
+      {
+        "rank": 6,
+        "name": "マッケンジー・ ダーン"
+      },
+      {
+        "rank": 7,
+        "name": "アレクサ・ グラッソ"
+      },
+      {
+        "rank": 8,
+        "name": "エリン・ ブランチフィールド"
+      },
+      {
+        "rank": 9,
+        "name": "ジュリアナ・ ペーニャ"
+      },
+      {
+        "rank": 10,
+        "name": "タティアナ・スアレス"
+      }
+    ]
   },
   "rizin": [
     {
