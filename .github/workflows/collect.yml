@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # GH_PAT（個人アクセストークン）があればそれでpush。
+          # PAT push はリポジトリ「活動」としてカウントされ
+          # 60日の scheduled-workflow 自動停止を防ぐ。
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,9 +33,14 @@ jobs:
         run: python scraper/collect.py
 
       - name: Commit updated data
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
           git diff --cached --quiet || git commit -m "chore: auto-update news/events/champions [skip ci]"
+          if [ -n "$GH_PAT" ]; then
+            git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/goodeven8-hub/mma-wave.git"
+          fi
           git push

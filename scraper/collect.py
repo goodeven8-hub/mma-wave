@@ -402,64 +402,48 @@ def scrape_mmajunkie_entries() -> list:
     return list(seen.values())
 
 
-def scrape_sportsnavi_entries() -> list:
-    """スポーツナビの格闘技ニュース一覧から RIZIN / ONE 関連記事を取得
-    （1ページ＝最新約20件のため、日付フィルタで過去7日分を巡回）"""
-    base = "https://sports.yahoo.co.jp/list/news/fight?genre=fight"
-    soups = []
-    for days_ago in range(7):
-        d = (NOW - timedelta(days=days_ago)).strftime("%Y-%m-%d")
-        url = base if days_ago == 0 else f"{base}&date={d}"
+def scrape_efight_entries() -> list:
+    """eFight の WordPress REST API から RIZIN・ONE 記事を取得
+    タグID: RIZIN=488, ONE=254"""
+    EFIGHT_TAGS = [("rizin", 488, "rizin"), ("one", 254, "one")]
+    out, seen = [], set()
+
+    for label, tag_id, cat in EFIGHT_TAGS:
+        url = (f"https://efight.jp/wp-json/wp/v2/posts"
+               f"?tags={tag_id}&per_page=20"
+               f"&_fields=id,title,link,date,excerpt")
         try:
             resp = requests.get(url, headers=_REQ_HEADERS, timeout=15)
             resp.raise_for_status()
-            soups.append(BeautifulSoup(resp.text, "html.parser"))
-            time.sleep(0.5)
+            posts = resp.json()
         except Exception as e:
-            print(f"  ✗ スポーツナビ({d}): {e}")
+            print(f"  ✗ eFight({label}): {e}")
+            continue
 
-    out, seen = [], set()
-    for soup in soups:
-        for a in soup.find_all("a", href=re.compile(r"news\.yahoo\.co\.jp/articles/")):
-            href = a["href"].split("?")[0]
-            if href in seen:
+        for p in posts:
+            link = p.get("link", "")
+            if link in seen:
                 continue
-            seen.add(href)
+            seen.add(link)
 
-            text  = a.get_text("\x1f", strip=True)
-            parts = [p.strip() for p in text.split("\x1f") if p.strip()]
-            if not parts:
+            title   = BeautifulSoup(p["title"]["rendered"], "html.parser").get_text()
+            excerpt = BeautifulSoup(p["excerpt"]["rendered"], "html.parser").get_text(" ", strip=True)[:800]
+            dt = datetime.fromisoformat(p["date"]).replace(tzinfo=JST)
+            if dt < ONE_YEAR_AGO:
                 continue
-            title = parts[0]
-
-            # 日時 例: 2026/6/11 21:38
-            m = re.search(r"(\d{4})/(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
-            if not m:
-                continue
-            dt = datetime(*(int(g) for g in m.groups()), tzinfo=JST)
-
-            # RIZIN / ONE 関連のみ採用（プロレス・ボクシング等は除外）
-            up = title.upper()
-            if "RIZIN" in up or "ライジン" in title:
-                cat = "rizin"
-            elif re.search(r"(?<![A-Za-z])ONE(?![A-Za-z])", title) or "ONEチャンピオンシップ" in title:
-                cat = "one"
-            else:
-                continue
-
-            # 配信元媒体名（タイトル | 媒体名 | 日時 の構造）
-            source = parts[-2] if len(parts) >= 3 and re.search(r"\d{1,2}:\d{2}", parts[-1]) else "スポーツナビ"
 
             out.append({
                 "title":   title,
-                "link":    href,
+                "link":    link,
                 "dt":      dt,
-                "summary": "",
-                "source":  source,
+                "summary": excerpt,
+                "source":  "eFight",
                 "cat":     cat,
-                "bonus":   3,  # 国内団体ニュースが英語圏スコアに埋もれないよう底上げ
+                "bonus":   3,
             })
-    print(f"  ✓ スポーツナビ(HTML): RIZIN/ONE {len(out)} 件")
+        time.sleep(0.3)
+
+    print(f"  ✓ eFight(API): RIZIN/ONE {len(out)} 件")
     return out
 
 
@@ -521,7 +505,7 @@ def collect_news() -> None:
         print(f"  ✓ {feed_def['source']}: {len(feed.entries)} エントリ / 候補 {sum(1 for c in candidates if c[2]['source_name']==feed_def['source'])} 件")
 
     # HTMLスクレイピングソース（MMA Junkie / スポーツナビ）
-    for entry in scrape_mmajunkie_entries() + scrape_sportsnavi_entries():
+    for entry in scrape_mmajunkie_entries() + scrape_efight_entries():
         dt = entry["dt"]
         if dt < ONE_YEAR_AGO:
             continue
