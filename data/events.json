@@ -1,27 +1,27 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-06-15",
-    "time": "09:00",
+    "date": "2026-06-14",
+    "time": "",
     "name": "UFC Freedom 250",
-    "matchup": "トプリア vs ゲイジー",
+    "matchup": "",
     "venue": "White House",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-freedom-250"
+    "url": null
   },
   {
     "cat": "ufc",
-    "date": "2026-06-21",
-    "time": "09:00",
+    "date": "2026-06-20",
+    "time": "",
     "name": "UFC Fight Night: Kape vs. Horiguchi",
-    "matchup": "ケイプ vs 堀口",
+    "matchup": "",
     "venue": "Meta Apex",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-june-20-2026"
+    "url": null
   },
   {
     "cat": "one",
@@ -37,27 +37,27 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-06-28",
-    "time": "01:00",
+    "date": "2026-06-27",
+    "time": "",
     "name": "UFC Fight Night: Fiziev vs. Torres",
-    "matchup": "フィジエフ vs トーレス",
+    "matchup": "",
     "venue": "National Gymnastics Arena",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-june-27-2026"
+    "url": null
   },
   {
     "cat": "ufc",
-    "date": "2026-07-12",
-    "time": "10:00",
+    "date": "2026-07-11",
+    "time": "",
     "name": "UFC 329: McGregor vs. Holloway 2",
-    "matchup": "マクレガー vs ホロウェイ 2",
+    "matchup": "",
     "venue": "T-Mobile Arena",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-329"
+    "url": null
   },
   {
     "cat": "one",
@@ -73,15 +73,15 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-07-19",
-    "time": "09:00",
+    "date": "2026-07-18",
+    "time": "",
     "name": "UFC Fight Night 281",
-    "matchup": "TBD vs TBD",
+    "matchup": "",
     "venue": "Paycom Center",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-july-18-2026"
+    "url": null
   },
   {
     "cat": "rizin",
@@ -99,27 +99,27 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-07-26",
-    "time": "01:00",
+    "date": "2026-07-25",
+    "time": "",
     "name": "UFC Fight Night: Ankalaev vs. Rountree Jr.",
-    "matchup": "アンカラエフ vs ラウントリーJr.",
+    "matchup": "",
     "venue": "Etihad Arena",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-july-25-2026"
+    "url": null
   },
   {
     "cat": "ufc",
-    "date": "2026-08-02",
-    "time": "03:00",
+    "date": "2026-08-01",
+    "time": "",
     "name": "UFC Fight Night: Medić vs. Rodriguez",
-    "matchup": "メディチ vs ロドリゲス",
+    "matchup": "",
     "venue": "Belgrade Arena",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-august-01-2026"
+    "url": null
   },
   {
     "cat": "ufc",
@@ -161,15 +161,15 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-08-16",
-    "time": "07:00",
+    "date": "2026-08-15",
+    "time": "",
     "name": "UFC 330",
-    "matchup": "TBD vs TBD",
+    "matchup": "",
     "venue": "Xfinity Mobile Arena",
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-330"
+    "url": null
   },
   {
     "cat": "ufc",
