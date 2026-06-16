@@ -16,7 +16,7 @@
     "date": "2026-06-21",
     "time": "09:00",
     "name": "UFC Fight Night: Kape vs. Horiguchi",
-    "matchup": "ケイプ vs 堀口",
+    "matchup": "",
     "venue": "Meta Apex",
     "watch": [
       "unext"
@@ -38,9 +38,9 @@
   {
     "cat": "ufc",
     "date": "2026-06-28",
-    "time": "01:00",
+    "time": "09:00",
     "name": "UFC Fight Night: Fiziev vs. Torres",
-    "matchup": "フィジエフ vs トーレス",
+    "matchup": "",
     "venue": "National Gymnastics Arena",
     "watch": [
       "unext"
@@ -62,9 +62,9 @@
   {
     "cat": "ufc",
     "date": "2026-07-12",
-    "time": "10:00",
+    "time": "11:00",
     "name": "UFC 329: McGregor vs. Holloway 2",
-    "matchup": "マクレガー vs ホロウェイ 2",
+    "matchup": "",
     "venue": "T-Mobile Arena",
     "watch": [
       "unext"
@@ -90,7 +90,7 @@
     "date": "2026-07-19",
     "time": "09:00",
     "name": "UFC Fight Night 281",
-    "matchup": "TBD vs TBD",
+    "matchup": "",
     "venue": "Paycom Center",
     "watch": [
       "unext"
@@ -100,9 +100,9 @@
   {
     "cat": "ufc",
     "date": "2026-07-26",
-    "time": "01:00",
+    "time": "09:00",
     "name": "UFC Fight Night: Ankalaev vs. Rountree Jr.",
-    "matchup": "アンカラエフ vs ラウントリーJr.",
+    "matchup": "",
     "venue": "Etihad Arena",
     "watch": [
       "unext"
@@ -112,9 +112,9 @@
   {
     "cat": "ufc",
     "date": "2026-08-02",
-    "time": "03:00",
+    "time": "09:00",
     "name": "UFC Fight Night: Medić vs. Rodriguez",
-    "matchup": "メディチ vs ロドリゲス",
+    "matchup": "",
     "venue": "Belgrade Arena",
     "watch": [
       "unext"
@@ -162,9 +162,9 @@
   {
     "cat": "ufc",
     "date": "2026-08-16",
-    "time": "07:00",
+    "time": "11:00",
     "name": "UFC 330",
-    "matchup": "TBD vs TBD",
+    "matchup": "",
     "venue": "Xfinity Mobile Arena",
     "watch": [
       "unext"
@@ -210,9 +210,9 @@
   {
     "cat": "ufc",
     "date": "2026-09-06",
-    "time": "07:00",
+    "time": "09:00",
     "name": "UFC Fight Night 287",
-    "matchup": "TBD vs TBD",
+    "matchup": "",
     "venue": "Accor Arena",
     "watch": [
       "unext"
