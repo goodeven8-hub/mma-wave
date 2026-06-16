@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-06-15",
-    "time": "09:00",
-    "name": "UFC Freedom 250",
-    "matchup": "",
-    "venue": "White House",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-freedom-250"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-06-21",
     "time": "09:00",
     "name": "UFC Fight Night: Kape vs. Horiguchi",
