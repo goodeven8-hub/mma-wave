@@ -736,7 +736,8 @@ def scrape_wiki_events(wiki_url: str, cat: str, watch: list,
 
             date_str = cells[date_col].get_text(" ", strip=True)
             dt = parse_wiki_date(date_str)
-            if not dt or dt < today or dt > horizon:
+            # UFCは米国日付→JST(+1日)変換するため、当日分が早く消えないよう2日の猶予
+            if not dt or dt < today - timedelta(days=2) or dt > horizon:
                 continue
 
             name = cells[event_col].get_text(" ", strip=True) if event_col is not None and event_col < len(cells) else ""
@@ -764,27 +765,30 @@ def scrape_wiki_events(wiki_url: str, cat: str, watch: list,
 
 
 def collect_ufc_times(events: list) -> list:
-    """UFC公式からmatchup・時刻・イベントURLを補完"""
+    """
+    UFC公式(ufc.com/events)から正確なJST時刻・matchup・日付を補完。
+    取得できない環境(GitHub ActionsのデータセンターIPはbot対策でカード0件になることがある)
+    でも finalize_ufc_events が設定した決定的URL・JST日付・既定時刻を壊さない。
+    """
     try:
         resp = requests.get(
             "https://www.ufc.com/events",
-            headers={
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                              "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Accept-Language": "ja,en-US;q=0.7,en;q=0.3",
-            },
-            timeout=15,
+            headers=UFC_RANKINGS_HEADERS,
+            timeout=20,
         )
         resp.raise_for_status()
     except Exception as e:
-        print(f"  ✗ UFC公式補完失敗: {e}")
+        print(f"  UFC公式補完スキップ(取得失敗 {e}) — 決定的URL/既定時刻を使用")
         return events
 
     soup = BeautifulSoup(resp.text, "html.parser")
-    ufc_data = {}  # date → {time, matchup, url}
+    cards = soup.select(".c-card-event--result")
+    if not cards:
+        print("  UFC公式補完スキップ(カード0件) — 決定的URL/既定時刻を使用")
+        return events
 
-    for card in soup.select(".c-card-event--result"):
+    ufc_data = {}  # JST date → {time, matchup, url}
+    for card in cards:
         txt = card.get_text(" ", strip=True)
         if "試合結果" in txt or "試合映像" in txt:
             continue
@@ -794,8 +798,7 @@ def collect_ufc_times(events: list) -> list:
         date_key = f"{date_m.group(1)}-{date_m.group(2).zfill(2)}-{date_m.group(3).zfill(2)}"
         time_m    = re.search(r"(\d{1,2}:\d{2})\s*JST", txt)
         matchup_m = re.match(r"^(.+?)\s+\d{4}\.", txt)
-        # イベントページのURL取得
-        link_el = card.select_one("a[href*='/event/']")
+        link_el   = card.select_one("a[href*='/event/']")
         event_url = ("https://www.ufc.com" + link_el["href"]) if link_el else None
         ufc_data[date_key] = {
             "time":    time_m.group(1).zfill(5) if time_m else "",
@@ -803,22 +806,23 @@ def collect_ufc_times(events: list) -> list:
             "url":     event_url,
         }
 
+    refined = 0
     for e in events:
         if e["cat"] != "ufc":
             continue
-        # Wikipedia日付(米国時間)とJST日付が±1日ずれるため前後日も検索
         edate = datetime.strptime(e["date"], "%Y-%m-%d").date()
         for delta in (0, 1, -1):
             key = (edate + timedelta(days=delta)).strftime("%Y-%m-%d")
             if key in ufc_data:
                 d = ufc_data[key]
                 e["date"]    = key
-                e["time"]    = d["time"] or e["time"]
+                e["time"]    = d["time"]    or e["time"]
                 e["matchup"] = d["matchup"] or e["matchup"]
-                e["url"]     = d["url"]
+                if d["url"]:
+                    e["url"] = d["url"]
+                refined += 1
                 break
-        if "url" not in e:
-            e["url"] = None
+    print(f"  UFC公式補完: {refined} 件の時刻/対戦カードを更新")
     return events
 
 
@@ -883,6 +887,57 @@ def build_event_url(cat: str, name: str, rizin_url_map: dict | None = None) -> s
     return JP_ORG_URLS.get(cat, "")
 
 
+MONTH_NAME_LOWER = {
+    1: "january", 2: "february", 3: "march", 4: "april", 5: "may", 6: "june",
+    7: "july", 8: "august", 9: "september", 10: "october", 11: "november", 12: "december",
+}
+
+
+def build_ufc_url(name: str, us_date) -> str:
+    """
+    Wikipediaのイベント名＋米国(現地)開催日から ufc.com の公式イベントURLを決定的に生成。
+    UFC.com を直接スクレイピングできない環境(GitHub Actions等)でもリンクが切れないようにする。
+      - "UFC 329: ..."            → /event/ufc-329
+      - "UFC Fight Night: A vs B"  → /event/ufc-fight-night-{month}-{dd}-{yyyy} (米国日付)
+      - "UFC Freedom 250"          → /event/ufc-freedom-250
+    """
+    n = name.strip()
+    m = re.match(r"UFC\s+(\d+)", n)
+    if m:
+        return f"https://www.ufc.com/event/ufc-{m.group(1)}"
+    if re.search(r"fight\s*night", n, re.IGNORECASE):
+        if us_date:
+            mon = MONTH_NAME_LOWER[us_date.month]
+            return f"https://www.ufc.com/event/ufc-fight-night-{mon}-{us_date.day:02d}-{us_date.year}"
+        return "https://www.ufc.com/events"
+    base = n.split(":")[0].strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", base.lower()).strip("-")
+    return f"https://www.ufc.com/event/{slug}" if slug else "https://www.ufc.com/events"
+
+
+def finalize_ufc_events(events: list) -> list:
+    """
+    UFCイベント(Wikipedia由来=米国日付)を日本向けに整える:
+      - 日付を JST(米国日付+1日) に変換 → 試合当日にちゃんと表示・翌日に消える
+      - 公式イベントURLを決定的に生成
+      - 時刻はタイプ別の既定値(UFC.comが取れれば後で上書き)
+    """
+    for e in events:
+        if e.get("cat") != "ufc":
+            continue
+        try:
+            us = datetime.strptime(e["date"], "%Y-%m-%d").date()
+        except (ValueError, KeyError):
+            continue
+        e["_us_date"] = us.strftime("%Y-%m-%d")
+        e["date"] = (us + timedelta(days=1)).strftime("%Y-%m-%d")
+        e["url"]  = build_ufc_url(e["name"], us)
+        if not e.get("time"):
+            is_ppv = bool(re.match(r"UFC\s+\d+", e["name"]))
+            e["time"] = "11:00" if is_ppv else "09:00"
+    return events
+
+
 def collect_events() -> None:
     print("\n[EVENTS] Wikipedia スクレイピング（UFC/RIZIN/ONE）...")
 
@@ -898,6 +953,7 @@ def collect_events() -> None:
         cat="ufc", watch=watch_jp["ufc"],
     )
     print(f"  UFC (Wikipedia): {len(ufc)} 件")
+    ufc = finalize_ufc_events(ufc)
     all_events.extend(ufc)
 
     # RIZIN
@@ -925,6 +981,10 @@ def collect_events() -> None:
     # UFC に UFC公式から matchup・時刻・URLを補完
     all_events = collect_ufc_times(all_events)
 
+    # 内部用の一時キーを除去
+    for e in all_events:
+        e.pop("_us_date", None)
+
     all_events.sort(key=lambda e: e["date"])
     save_json(EVENTS_FILE, all_events)
     print(f"  → 合計 {len(all_events)} イベント保存")
@@ -933,6 +993,30 @@ def collect_events() -> None:
 # ============================================================
 # チャンピオン収集（UFC.com/rankings）
 # ============================================================
+_NAME_JA_CACHE = {}
+
+
+def translate_name(text: str) -> str:
+    """
+    選手名を日本語(カタカナ)に。すでに日本語ならそのまま。
+    UFC.comはデータセンターIP(GitHub Actions)だと英語名を返すため、その場合に変換。
+    """
+    text = (text or "").strip()
+    if not text:
+        return text
+    ja_ratio = sum(1 for c in text if '　' <= c <= '鿿' or 'ァ' <= c <= 'ヿ') / max(len(text), 1)
+    if ja_ratio > 0.3:
+        return text
+    if text in _NAME_JA_CACHE:
+        return _NAME_JA_CACHE[text]
+    try:
+        ja = translate(text, max_len=40).strip() or text
+    except Exception:
+        ja = text
+    _NAME_JA_CACHE[text] = ja
+    return ja
+
+
 UFC_RANKINGS_URL = "https://www.ufc.com/rankings"
 UFC_RANKINGS_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -966,6 +1050,7 @@ def scrape_ufc_rankings() -> dict:
         champ_name = champ_el.get_text(strip=True) if champ_el else ""
         if not champ_name:
             continue
+        champ_name = translate_name(champ_name)
 
         is_women = "女子" in division_raw or "women" in division_raw.lower()
         is_p4p   = ("ポンドフォーポンド" in division_raw or "P4P" in division_raw.upper()
@@ -986,7 +1071,7 @@ def scrape_ufc_rankings() -> dict:
                 name_el = (row.select_one(".views-field-title a")
                            or row.select_one("td a"))
                 if name_el:
-                    ranks.append({"rank": i, "name": name_el.get_text(strip=True)})
+                    ranks.append({"rank": i, "name": translate_name(name_el.get_text(strip=True))})
             if is_women:
                 p4p_women = ranks
             else:

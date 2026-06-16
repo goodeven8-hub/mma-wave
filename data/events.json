@@ -1,15 +1,27 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-06-20",
-    "time": "",
-    "name": "UFC Fight Night: Kape vs. Horiguchi",
+    "date": "2026-06-15",
+    "time": "09:00",
+    "name": "UFC Freedom 250",
     "matchup": "",
+    "venue": "White House",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-freedom-250"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-06-21",
+    "time": "09:00",
+    "name": "UFC Fight Night: Kape vs. Horiguchi",
+    "matchup": "ケイプ vs 堀口",
     "venue": "Meta Apex",
     "watch": [
       "unext"
     ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-june-20-2026"
   },
   {
     "cat": "one",
@@ -25,27 +37,15 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-06-27",
-    "time": "",
+    "date": "2026-06-28",
+    "time": "01:00",
     "name": "UFC Fight Night: Fiziev vs. Torres",
-    "matchup": "",
+    "matchup": "フィジエフ vs トーレス",
     "venue": "National Gymnastics Arena",
     "watch": [
       "unext"
     ],
-    "url": null
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-07-11",
-    "time": "",
-    "name": "UFC 329: McGregor vs. Holloway 2",
-    "matchup": "",
-    "venue": "T-Mobile Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-june-27-2026"
   },
   {
     "cat": "one",
@@ -61,15 +61,15 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-07-18",
-    "time": "",
-    "name": "UFC Fight Night 281",
-    "matchup": "",
-    "venue": "Paycom Center",
+    "date": "2026-07-12",
+    "time": "10:00",
+    "name": "UFC 329: McGregor vs. Holloway 2",
+    "matchup": "マクレガー vs ホロウェイ 2",
+    "venue": "T-Mobile Arena",
     "watch": [
       "unext"
     ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-329"
   },
   {
     "cat": "rizin",
@@ -87,39 +87,39 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-07-25",
-    "time": "",
+    "date": "2026-07-19",
+    "time": "09:00",
+    "name": "UFC Fight Night 281",
+    "matchup": "TBD vs TBD",
+    "venue": "Paycom Center",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-july-18-2026"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-07-26",
+    "time": "01:00",
     "name": "UFC Fight Night: Ankalaev vs. Rountree Jr.",
-    "matchup": "",
+    "matchup": "アンカラエフ vs ラウントリーJr.",
     "venue": "Etihad Arena",
     "watch": [
       "unext"
     ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-july-25-2026"
   },
   {
     "cat": "ufc",
-    "date": "2026-08-01",
-    "time": "",
+    "date": "2026-08-02",
+    "time": "03:00",
     "name": "UFC Fight Night: Medić vs. Rodriguez",
-    "matchup": "",
+    "matchup": "メディチ vs ロドリゲス",
     "venue": "Belgrade Arena",
     "watch": [
       "unext"
     ],
-    "url": null
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-08-08",
-    "time": "",
-    "name": "UFC Fight Night 284",
-    "matchup": "",
-    "venue": "Meta Apex",
-    "watch": [
-      "unext"
-    ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-01-2026"
   },
   {
     "cat": "one",
@@ -132,6 +132,18 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-08-09",
+    "time": "09:00",
+    "name": "UFC Fight Night 284",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-08-2026"
   },
   {
     "cat": "rizin",
@@ -149,51 +161,39 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-08-15",
-    "time": "",
+    "date": "2026-08-16",
+    "time": "07:00",
     "name": "UFC 330",
-    "matchup": "",
+    "matchup": "TBD vs TBD",
     "venue": "Xfinity Mobile Arena",
     "watch": [
       "unext"
     ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-330"
   },
   {
     "cat": "ufc",
-    "date": "2026-08-22",
-    "time": "",
+    "date": "2026-08-23",
+    "time": "09:00",
     "name": "UFC Fight Night 285",
     "matchup": "",
     "venue": "Meta Apex",
     "watch": [
       "unext"
     ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-22-2026"
   },
   {
     "cat": "ufc",
-    "date": "2026-08-29",
-    "time": "",
+    "date": "2026-08-30",
+    "time": "09:00",
     "name": "UFC Fight Night 286",
     "matchup": "",
     "venue": "Shanghai Indoor Stadium",
     "watch": [
       "unext"
     ],
-    "url": null
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-09-05",
-    "time": "",
-    "name": "UFC Fight Night 287",
-    "matchup": "",
-    "venue": "Accor Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": null
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-29-2026"
   },
   {
     "cat": "one",
@@ -206,6 +206,18 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-09-06",
+    "time": "07:00",
+    "name": "UFC Fight Night 287",
+    "matchup": "TBD vs TBD",
+    "venue": "Accor Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-september-05-2026"
   },
   {
     "cat": "rizin",

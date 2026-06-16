@@ -3,49 +3,49 @@
     "men": [
       {
         "weight": "フライ級",
-        "name": "Joshua Van",
+        "name": "ジョシュア・ヴァン",
         "since": "2025年12月6日",
         "defenses": 1
       },
       {
         "weight": "バンタム級",
-        "name": "Petr Yan",
+        "name": "ピョートル・ ヤン",
         "since": "2025年12月6日",
         "defenses": 0
       },
       {
         "weight": "フェザー級",
-        "name": "Alexander Volkanovski",
+        "name": "アレクサンダー･ ヴォルカノフスキー",
         "since": "2025年4月12日",
         "defenses": 1
       },
       {
         "weight": "ライト級",
-        "name": "Ilia Topuria",
+        "name": "イリア・トプリア",
         "since": "2026年6月14日",
         "defenses": 0
       },
       {
         "weight": "ウェルター級",
-        "name": "Islam Makhachev",
+        "name": "イスラム・ マハチェフ",
         "since": "2025年11月15日",
         "defenses": 0
       },
       {
         "weight": "ミドル級",
-        "name": "Sean Strickland",
+        "name": "ショーン・ストリックランド",
         "since": "2026年5月9日",
         "defenses": 0
       },
       {
         "weight": "ライトヘビー級",
-        "name": "Carlos Ulberg",
+        "name": "カーロス・アルバーグ",
         "since": "2026年4月11日",
         "defenses": 0
       },
       {
         "weight": "ヘビー級",
-        "name": "Tom Aspinall",
+        "name": "トム・ アスピナル",
         "since": "2025年6月21日",
         "defenses": 0
       }
@@ -53,19 +53,19 @@
     "women": [
       {
         "weight": "女子ストロー級",
-        "name": "Mackenzie Dern",
+        "name": "マッケンジー・ ダーン",
         "since": "2025年10月25日",
         "defenses": 0
       },
       {
         "weight": "女子フライ級",
-        "name": "Valentina Shevchenko",
+        "name": "ヴァレンティナ・シェフチェンコ",
         "since": "2024年9月14日",
         "defenses": 2
       },
       {
         "weight": "女子バンタム級",
-        "name": "Kayla Harrison",
+        "name": "ケイラ・ ハリソン",
         "since": "2025年6月7日",
         "defenses": 0
       }
@@ -73,85 +73,85 @@
     "p4p_men": [
       {
         "rank": 1,
-        "name": "Islam Makhachev"
+        "name": "イスラム・ マハチェフ"
       },
       {
         "rank": 2,
-        "name": "Ilia Topuria"
+        "name": "イリア・トプリア"
       },
       {
         "rank": 3,
-        "name": "Alexander Volkanovski"
+        "name": "アレクサンダー･ ヴォルカノフスキー"
       },
       {
         "rank": 4,
-        "name": "Alex Pereira"
+        "name": "アレックス・ペレイラ"
       },
       {
         "rank": 5,
-        "name": "Petr Yan"
+        "name": "ピョートル・ ヤン"
       },
       {
         "rank": 6,
-        "name": "Tom Aspinall"
+        "name": "トム・ アスピナル"
       },
       {
         "rank": 7,
-        "name": "Merab Dvalishvili"
+        "name": "メラブ・ ドバリシビリ"
       },
       {
         "rank": 8,
-        "name": "Sean Strickland"
+        "name": "ショーン・ストリックランド"
       },
       {
         "rank": 9,
-        "name": "Joshua Van"
+        "name": "ジョシュア・ヴァン"
       },
       {
         "rank": 10,
-        "name": "Khamzat Chimaev"
+        "name": "ハムザト・チマエフ"
       }
     ],
     "p4p_women": [
       {
         "rank": 1,
-        "name": "Valentina Shevchenko"
+        "name": "ヴァレンティナ・シェフチェンコ"
       },
       {
         "rank": 2,
-        "name": "Kayla Harrison"
+        "name": "ケイラ・ ハリソン"
       },
       {
         "rank": 3,
-        "name": "Zhang Weili"
+        "name": "ジャン・ウェイリー"
       },
       {
         "rank": 4,
-        "name": "Natalia Silva"
+        "name": "ナタリア・ シウバ"
       },
       {
         "rank": 5,
-        "name": "Manon Fiorot"
+        "name": "マノン・ フィオロ"
       },
       {
         "rank": 6,
-        "name": "Mackenzie Dern"
+        "name": "マッケンジー・ ダーン"
       },
       {
         "rank": 7,
-        "name": "Alexa Grasso"
+        "name": "アレクサ・ グラッソ"
       },
       {
         "rank": 8,
-        "name": "Erin Blanchfield"
+        "name": "エリン・ ブランチフィールド"
       },
       {
         "rank": 9,
-        "name": "Julianna Peña"
+        "name": "ジュリアナ・ ペーニャ"
       },
       {
         "rank": 10,
-        "name": "Tatiana Suarez"
+        "name": "タティアナ・スアレス"
       }
     ]
   },
