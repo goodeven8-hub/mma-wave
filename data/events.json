@@ -1,17 +1,5 @@
 [
   {
-    "cat": "ufc",
-    "date": "2026-06-28",
-    "time": "09:00",
-    "name": "UFC Fight Night: Fiziev vs. Torres",
-    "matchup": "",
-    "venue": "National Gymnastics Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-june-27-2026"
-  },
-  {
     "cat": "one",
     "date": "2026-07-11",
     "time": "20:00",
