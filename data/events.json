@@ -139,7 +139,7 @@
     "cat": "ufc",
     "date": "2026-08-31",
     "time": "09:00",
-    "name": "UFC Fight Night 286",
+    "name": "UFC Fight Night: Nurmagomedov vs. Song",
     "matchup": "",
     "venue": "SPD Bank Oriental Sports Center",
     "watch": [
@@ -184,6 +184,18 @@
       "abema"
     ],
     "url": "https://jp.rizinff.com/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-09-20",
+    "time": "11:00",
+    "name": "UFC 331",
+    "matchup": "",
+    "venue": "TBA",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-331"
   },
   {
     "cat": "one",
