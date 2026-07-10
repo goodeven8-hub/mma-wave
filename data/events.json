@@ -187,6 +187,18 @@
   },
   {
     "cat": "ufc",
+    "date": "2026-09-13",
+    "time": "09:00",
+    "name": "UFC Fight Night 288",
+    "matchup": "",
+    "venue": "Desert Diamond Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-september-12-2026"
+  },
+  {
+    "cat": "ufc",
     "date": "2026-09-20",
     "time": "11:00",
     "name": "UFC 331",
