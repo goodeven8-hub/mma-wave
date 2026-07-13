@@ -1,29 +1,5 @@
 [
   {
-    "cat": "one",
-    "date": "2026-07-11",
-    "time": "20:00",
-    "name": "ONE Fight Night 44",
-    "matchup": "",
-    "venue": "Lumpinee Boxing Stadium",
-    "watch": [
-      "one-fc"
-    ],
-    "url": "https://www.onefc.com/events/"
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-07-12",
-    "time": "11:00",
-    "name": "UFC 329: McGregor vs. Holloway 2",
-    "matchup": "",
-    "venue": "T-Mobile Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-329"
-  },
-  {
     "cat": "rizin",
     "date": "2026-07-18",
     "time": "17:00",
@@ -137,7 +113,7 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-08-31",
+    "date": "2026-08-30",
     "time": "09:00",
     "name": "UFC Fight Night: Nurmagomedov vs. Song",
     "matchup": "",
@@ -145,7 +121,7 @@
     "watch": [
       "unext"
     ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-august-30-2026"
+    "url": "https://www.ufc.com/event/ufc-fight-night-august-29-2026"
   },
   {
     "cat": "one",
@@ -203,7 +179,7 @@
     "time": "11:00",
     "name": "UFC 331",
     "matchup": "",
-    "venue": "TBA",
+    "venue": "Crypto.com Arena",
     "watch": [
       "unext"
     ],
