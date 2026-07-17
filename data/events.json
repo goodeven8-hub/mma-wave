@@ -186,6 +186,18 @@
     "url": "https://www.ufc.com/event/ufc-331"
   },
   {
+    "cat": "ufc",
+    "date": "2026-09-27",
+    "time": "09:00",
+    "name": "UFC Fight Night 289",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-september-26-2026"
+  },
+  {
     "cat": "one",
     "date": "2026-10-03",
     "time": "20:00",
