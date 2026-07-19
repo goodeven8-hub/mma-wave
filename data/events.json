@@ -208,5 +208,17 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-10-18",
+    "time": "09:00",
+    "name": "UFC Fight Night 290",
+    "matchup": "",
+    "venue": "Rogers Place",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-october-17-2026"
   }
 ]
