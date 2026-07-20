@@ -1,31 +1,5 @@
 [
   {
-    "cat": "rizin",
-    "date": "2026-07-18",
-    "time": "17:00",
-    "name": "Rizin Landmark 15",
-    "matchup": "",
-    "venue": "Hiroshima Prefectural Sports Center",
-    "watch": [
-      "unext",
-      "rizin-live",
-      "abema"
-    ],
-    "url": "https://jp.rizinff.com/_ct/17825995"
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-07-19",
-    "time": "09:00",
-    "name": "UFC Fight Night: du Plessis vs. Usman",
-    "matchup": "",
-    "venue": "Paycom Center",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-july-18-2026"
-  },
-  {
     "cat": "ufc",
     "date": "2026-07-26",
     "time": "09:00",
