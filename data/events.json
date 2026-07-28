@@ -101,7 +101,7 @@
     "cat": "ufc",
     "date": "2026-09-06",
     "time": "09:00",
-    "name": "UFC Fight Night 287",
+    "name": "UFC Fight Night: Hooker vs. Parnasse",
     "matchup": "",
     "venue": "Accor Arena",
     "watch": [
@@ -153,7 +153,7 @@
     "time": "09:00",
     "name": "UFC Fight Night 289",
     "matchup": "",
-    "venue": "Meta Apex",
+    "venue": "[ 15 ]",
     "watch": [
       "unext"
     ],
@@ -173,9 +173,21 @@
   },
   {
     "cat": "ufc",
-    "date": "2026-10-18",
+    "date": "2026-10-11",
     "time": "09:00",
     "name": "UFC Fight Night 290",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-october-10-2026"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-10-18",
+    "time": "09:00",
+    "name": "UFC Fight Night 291",
     "matchup": "",
     "venue": "Rogers Place",
     "watch": [
