@@ -153,7 +153,7 @@
     "time": "09:00",
     "name": "UFC Fight Night 289",
     "matchup": "",
-    "venue": "[ 15 ]",
+    "venue": "Meta Apex",
     "watch": [
       "unext"
     ],
@@ -170,6 +170,18 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-10-04",
+    "time": "11:00",
+    "name": "UFC 332",
+    "matchup": "",
+    "venue": "Delta Center",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-332"
   },
   {
     "cat": "ufc",
