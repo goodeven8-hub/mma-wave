@@ -1,17 +1,5 @@
 [
   {
-    "cat": "ufc",
-    "date": "2026-08-02",
-    "time": "09:00",
-    "name": "UFC Fight Night: Medić vs. Rodriguez",
-    "matchup": "",
-    "venue": "Belgrade Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-august-01-2026"
-  },
-  {
     "cat": "one",
     "date": "2026-08-08",
     "time": "20:00",
@@ -127,7 +115,7 @@
     "cat": "ufc",
     "date": "2026-09-13",
     "time": "09:00",
-    "name": "UFC Fight Night 288",
+    "name": "UFC Fight Night: Rodriguez vs. Silva",
     "matchup": "",
     "venue": "Desert Diamond Arena",
     "watch": [
