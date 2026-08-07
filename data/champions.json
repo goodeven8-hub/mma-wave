@@ -9,19 +9,19 @@
       },
       {
         "weight": "バンタム級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ペトル・ヤン",
         "since": "2025年12月6日",
         "defenses": 0
       },
       {
         "weight": "フェザー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "アレクサンダー・ヴォルカノフスキー",
         "since": "2025年4月12日",
         "defenses": 1
       },
       {
         "weight": "ライト級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ジャスティン・ゲイジー",
         "since": "2026年6月14日",
         "defenses": 0
       },
@@ -45,7 +45,7 @@
       },
       {
         "weight": "ヘビー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "トム・アスピナル",
         "since": "2025年6月21日",
         "defenses": 0
       },
@@ -57,19 +57,19 @@
       },
       {
         "weight": "バンタム級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ペトル・ヤン",
         "since": "2025年12月6日",
         "defenses": 0
       },
       {
         "weight": "フェザー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "アレクサンダー・ヴォルカノフスキー",
         "since": "2025年4月12日",
         "defenses": 1
       },
       {
         "weight": "ライト級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ジャスティン・ゲイジー",
         "since": "2026年6月14日",
         "defenses": 0
       },
@@ -93,7 +93,7 @@
       },
       {
         "weight": "ヘビー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "トム・アスピナル",
         "since": "2025年6月21日",
         "defenses": 0
       }
@@ -143,15 +143,15 @@
       },
       {
         "rank": 2,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "アレクサンダー・ヴォルカノフスキー"
       },
       {
         "rank": 3,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "ペトル・ヤン"
       },
       {
         "rank": 4,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "ジャスティン・ゲイジー"
       },
       {
         "rank": 5,
@@ -159,7 +159,7 @@
       },
       {
         "rank": 6,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "トム・アスピナル"
       },
       {
         "rank": 7,
@@ -175,7 +175,7 @@
       },
       {
         "rank": 10,
-        "name": "シリル・ゲイン"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       }
     ],
     "p4p_women": [
