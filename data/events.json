@@ -148,6 +148,20 @@
     "url": "https://www.ufc.com/event/ufc-fight-night-september-26-2026"
   },
   {
+    "cat": "rizin",
+    "date": "2026-10-03",
+    "time": "17:00",
+    "name": "Rizin Landmark 16",
+    "matchup": "",
+    "venue": "Happiness Arena",
+    "watch": [
+      "unext",
+      "rizin-live",
+      "abema"
+    ],
+    "url": "https://jp.rizinff.com/_ct/17852438"
+  },
+  {
     "cat": "one",
     "date": "2026-10-03",
     "time": "20:00",
@@ -218,5 +232,19 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "rizin",
+    "date": "2026-11-08",
+    "time": "17:00",
+    "name": "Rizin Landmark 17",
+    "matchup": "",
+    "venue": "LaLa Arena Tokyo-Bay",
+    "watch": [
+      "unext",
+      "rizin-live",
+      "abema"
+    ],
+    "url": "https://jp.rizinff.com/_ct/17852466"
   }
 ]
