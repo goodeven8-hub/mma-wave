@@ -175,13 +175,25 @@
     "cat": "ufc",
     "date": "2026-10-25",
     "time": "11:00",
-    "name": "UFC 333",
+    "name": "UFC 333: Volkanovski vs. Evloev",
     "matchup": "",
     "venue": "Etihad Arena",
     "watch": [
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-333"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-11-01",
+    "time": "09:00",
+    "name": "UFC Fight Night 292",
+    "matchup": "",
+    "venue": "[ 14 ]",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-october-31-2026"
   },
   {
     "cat": "one",
@@ -194,6 +206,18 @@
       "one-fc"
     ],
     "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-11-08",
+    "time": "09:00",
+    "name": "UFC Fight Night 293",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-november-07-2026"
   },
   {
     "cat": "rizin",
