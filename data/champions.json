@@ -9,7 +9,7 @@
       },
       {
         "weight": "バンタム級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ペトル・ヤン",
         "since": "2025年12月6日",
         "defenses": 0
       },
@@ -27,13 +27,13 @@
       },
       {
         "weight": "ウェルター級",
-        "name": "イスラム・マハチェフ",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2025年11月15日",
         "defenses": 1
       },
       {
         "weight": "ミドル級",
-        "name": "ショーン・ストリックランド",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2026年5月9日",
         "defenses": 0
       },
@@ -57,7 +57,7 @@
       },
       {
         "weight": "バンタム級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ペトル・ヤン",
         "since": "2025年12月6日",
         "defenses": 0
       },
@@ -75,13 +75,13 @@
       },
       {
         "weight": "ウェルター級",
-        "name": "イスラム・マハチェフ",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2025年11月15日",
         "defenses": 1
       },
       {
         "weight": "ミドル級",
-        "name": "ショーン・ストリックランド",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2026年5月9日",
         "defenses": 0
       },
@@ -139,7 +139,7 @@
     "p4p_men": [
       {
         "rank": 1,
-        "name": "イスラム・マハチェフ"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       },
       {
         "rank": 2,
@@ -147,7 +147,7 @@
       },
       {
         "rank": 3,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "ペトル・ヤン"
       },
       {
         "rank": 4,
@@ -163,7 +163,7 @@
       },
       {
         "rank": 7,
-        "name": "ショーン・ストリックランド"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       },
       {
         "rank": 8,
@@ -197,15 +197,15 @@
       },
       {
         "rank": 5,
-        "name": "マノン・フィオロット"
-      },
-      {
-        "rank": 6,
         "name": "マッケンジー・ダーン"
       },
       {
+        "rank": 6,
+        "name": "マノン・フィオロット"
+      },
+      {
         "rank": 7,
-        "name": "アレクサ・グラッソ"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       },
       {
         "rank": 8,
@@ -217,7 +217,7 @@
       },
       {
         "rank": 10,
-        "name": "タチアナ・スアレス"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       }
     ]
   },
