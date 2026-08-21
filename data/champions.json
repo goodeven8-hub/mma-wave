@@ -27,13 +27,13 @@
       },
       {
         "weight": "ウェルター級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "イスラム・マハチェフ",
         "since": "2025年11月15日",
         "defenses": 1
       },
       {
         "weight": "ミドル級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ショーン・ストリックランド",
         "since": "2026年5月9日",
         "defenses": 0
       },
@@ -45,7 +45,7 @@
       },
       {
         "weight": "ヘビー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "トム・アスピナル",
         "since": "2025年6月21日",
         "defenses": 0
       },
@@ -75,13 +75,13 @@
       },
       {
         "weight": "ウェルター級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "イスラム・マハチェフ",
         "since": "2025年11月15日",
         "defenses": 1
       },
       {
         "weight": "ミドル級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "ショーン・ストリックランド",
         "since": "2026年5月9日",
         "defenses": 0
       },
@@ -93,7 +93,7 @@
       },
       {
         "weight": "ヘビー級",
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
+        "name": "トム・アスピナル",
         "since": "2025年6月21日",
         "defenses": 0
       }
@@ -101,13 +101,13 @@
     "women": [
       {
         "weight": "女子ストロー級",
-        "name": "マッケンジー・ダーン",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2025年10月25日",
         "defenses": 1
       },
       {
         "weight": "女子フライ級",
-        "name": "ヴァレンティーナ・シェフチェンコ",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2024年9月14日",
         "defenses": 2
       },
@@ -119,13 +119,13 @@
       },
       {
         "weight": "女子ストロー級",
-        "name": "マッケンジー・ダーン",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2025年10月25日",
         "defenses": 1
       },
       {
         "weight": "女子フライ級",
-        "name": "ヴァレンティーナ・シェフチェンコ",
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.",
         "since": "2024年9月14日",
         "defenses": 2
       },
@@ -139,7 +139,7 @@
     "p4p_men": [
       {
         "rank": 1,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "イスラム・マハチェフ"
       },
       {
         "rank": 2,
@@ -159,11 +159,11 @@
       },
       {
         "rank": 6,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "トム・アスピナル"
       },
       {
         "rank": 7,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "ショーン・ストリックランド"
       },
       {
         "rank": 8,
@@ -181,7 +181,7 @@
     "p4p_women": [
       {
         "rank": 1,
-        "name": "ヴァレンティーナ・シェフチェンコ"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       },
       {
         "rank": 2,
@@ -197,7 +197,7 @@
       },
       {
         "rank": 5,
-        "name": "マッケンジー・ダーン"
+        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
       },
       {
         "rank": 6,
@@ -205,7 +205,7 @@
       },
       {
         "rank": 7,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "アレクサ・グラッソ"
       },
       {
         "rank": 8,
@@ -217,7 +217,7 @@
       },
       {
         "rank": 10,
-        "name": "Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know."
+        "name": "タチアナ・スアレス"
       }
     ]
   },
