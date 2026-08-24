@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-08-23",
-    "time": "09:00",
-    "name": "UFC Fight Night: Hernandez vs. Rodrigues",
-    "matchup": "",
-    "venue": "Golden 1 Center",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-august-22-2026"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-08-30",
     "time": "09:00",
     "name": "UFC Fight Night: Nurmagomedov vs. Song",
