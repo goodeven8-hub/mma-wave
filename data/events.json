@@ -165,7 +165,7 @@
     "time": "09:00",
     "name": "UFC Fight Night 292",
     "matchup": "",
-    "venue": "[ 15 ]",
+    "venue": "[ 16 ]",
     "watch": [
       "unext"
     ],
@@ -220,5 +220,17 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-334"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-11-22",
+    "time": "09:00",
+    "name": "UFC Fight Night 294",
+    "matchup": "",
+    "venue": "Ali Bin Hamad al-Attiyah Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-november-21-2026"
   }
 ]
