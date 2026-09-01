@@ -1,17 +1,5 @@
 [
   {
-    "cat": "ufc",
-    "date": "2026-08-30",
-    "time": "09:00",
-    "name": "UFC Fight Night: Nurmagomedov vs. Song",
-    "matchup": "",
-    "venue": "SPD Bank Oriental Sports Center",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-august-29-2026"
-  },
-  {
     "cat": "one",
     "date": "2026-09-05",
     "time": "20:00",
