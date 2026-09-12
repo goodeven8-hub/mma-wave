@@ -1,19 +1,5 @@
 [
   {
-    "cat": "rizin",
-    "date": "2026-09-10",
-    "time": "17:00",
-    "name": "Super Rizin 5",
-    "matchup": "",
-    "venue": "Kyocera Dome Osaka",
-    "watch": [
-      "unext",
-      "rizin-live",
-      "abema"
-    ],
-    "url": "https://jp.rizinff.com/"
-  },
-  {
     "cat": "ufc",
     "date": "2026-09-13",
     "time": "09:00",
@@ -163,7 +149,7 @@
     "cat": "rizin",
     "date": "2026-11-08",
     "time": "17:00",
-    "name": "Rizin Landmark 17",
+    "name": "Rizin 55",
     "matchup": "",
     "venue": "LaLa Arena Tokyo-Bay",
     "watch": [
@@ -171,7 +157,7 @@
       "rizin-live",
       "abema"
     ],
-    "url": "https://jp.rizinff.com/_ct/17852466"
+    "url": "https://jp.rizinff.com/"
   },
   {
     "cat": "ufc",
@@ -196,5 +182,29 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-november-21-2026"
+  },
+  {
+    "cat": "one",
+    "date": "2026-12-12",
+    "time": "20:00",
+    "name": "ONE Fight Night 49",
+    "matchup": "",
+    "venue": "Lumpinee Boxing Stadium",
+    "watch": [
+      "one-fc"
+    ],
+    "url": "https://www.onefc.com/events/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-12-13",
+    "time": "11:00",
+    "name": "UFC 335",
+    "matchup": "",
+    "venue": "T-Mobile Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-335"
   }
 ]
