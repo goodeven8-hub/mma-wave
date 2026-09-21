@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-09-20",
-    "time": "11:00",
-    "name": "UFC 331: Van vs. Pantoja 2",
-    "matchup": "",
-    "venue": "Crypto.com Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-331"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-09-27",
     "time": "09:00",
     "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
@@ -151,7 +139,7 @@
     "cat": "ufc",
     "date": "2026-11-15",
     "time": "11:00",
-    "name": "UFC 334: Gane vs. Hokit",
+    "name": "UFC 334",
     "matchup": "",
     "venue": "Madison Square Garden",
     "watch": [
