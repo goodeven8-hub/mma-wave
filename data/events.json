@@ -1,17 +1,5 @@
 [
   {
-    "cat": "ufc",
-    "date": "2026-09-27",
-    "time": "09:00",
-    "name": "UFC Fight Night: Rosas Jr. vs. Barcelos",
-    "matchup": "",
-    "venue": "Meta Apex",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-september-26-2026"
-  },
-  {
     "cat": "rizin",
     "date": "2026-10-03",
     "time": "17:00",
