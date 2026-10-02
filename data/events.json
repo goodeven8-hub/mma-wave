@@ -170,5 +170,19 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-335"
+  },
+  {
+    "cat": "rizin",
+    "date": "2026-12-31",
+    "time": "17:00",
+    "name": "Rizin: New Year's Eve Event",
+    "matchup": "",
+    "venue": "Vantelin Dome Nagoya",
+    "watch": [
+      "unext",
+      "rizin-live",
+      "abema"
+    ],
+    "url": "https://jp.rizinff.com/"
   }
 ]
