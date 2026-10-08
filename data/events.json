@@ -41,7 +41,7 @@
     "time": "09:00",
     "name": "UFC Fight Night: Moicano vs. Nolan",
     "matchup": "",
-    "venue": "[ 17 ]",
+    "venue": "[ 18 ]",
     "watch": [
       "unext"
     ],
@@ -83,7 +83,7 @@
       "rizin-live",
       "abema"
     ],
-    "url": "https://jp.rizinff.com/"
+    "url": "https://jp.rizinff.com/_ct/17852466"
   },
   {
     "cat": "ufc",
@@ -108,6 +108,18 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-november-21-2026"
+  },
+  {
+    "cat": "ufc",
+    "date": "2026-11-29",
+    "time": "09:00",
+    "name": "UFC Fight Night 295",
+    "matchup": "",
+    "venue": "TBA",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-november-28-2026"
   },
   {
     "cat": "one",
