@@ -2,140 +2,99 @@
   "ufc": {
     "men": [
       {
-        "weight": "フライ級",
-        "name": "Joshua Van",
-        "since": "2025年12月6日",
-        "defenses": 2
+        "weight": "Poids mouche",
+        "name": "Joshua Van"
       },
       {
-        "weight": "バンタム級",
-        "name": "Petr Yan",
-        "since": "2025年12月6日",
-        "defenses": 0
+        "weight": "Poids coq",
+        "name": "Petr Yan"
       },
       {
-        "weight": "フェザー級",
-        "name": "Alexander Volkanovski",
-        "since": "2025年4月12日",
-        "defenses": 1
+        "weight": "Poids plume",
+        "name": "Alexander Volkanovski"
       },
       {
-        "weight": "ライト級",
-        "name": "Justin Gaethje",
-        "since": "2026年6月14日",
-        "defenses": 0
+        "weight": "Poids légers",
+        "name": "Justin Gaethje"
       },
       {
-        "weight": "ウェルター級",
-        "name": "Islam Makhachev",
-        "since": "2025年11月15日",
-        "defenses": 1
+        "weight": "Poids mi-moyens",
+        "name": "Islam Makhachev"
       },
       {
-        "weight": "ミドル級",
-        "name": "Sean Strickland",
-        "since": "2026年5月9日",
-        "defenses": 0
+        "weight": "Poids moyens",
+        "name": "Sean Strickland"
       },
       {
-        "weight": "ライトヘビー級",
-        "name": "Carlos Ulberg",
-        "since": "2026年4月11日",
-        "defenses": 0
+        "weight": "Poids mi-lourds",
+        "name": "Carlos Ulberg"
       },
       {
-        "weight": "ヘビー級",
-        "name": "Ciryl Gane",
-        "since": "2026年9月14日",
-        "defenses": 0
+        "weight": "Poids lourds",
+        "name": "Ciryl Gane"
       },
       {
-        "weight": "フライ級",
-        "name": "Joshua Van",
-        "since": "2025年12月6日",
-        "defenses": 2
+        "weight": "Féminin - Livre pour livreTop Rank",
+        "name": "Valentina Shevchenko"
       },
       {
-        "weight": "バンタム級",
-        "name": "Petr Yan",
-        "since": "2025年12月6日",
-        "defenses": 0
+        "weight": "Poids paille féminins",
+        "name": "Mackenzie Dern"
       },
       {
-        "weight": "フェザー級",
-        "name": "Alexander Volkanovski",
-        "since": "2025年4月12日",
-        "defenses": 1
+        "weight": "Poids mouche féminins",
+        "name": "Natalia Silva"
       },
       {
-        "weight": "ライト級",
-        "name": "Justin Gaethje",
-        "since": "2026年6月14日",
-        "defenses": 0
+        "weight": "Poids coq féminins",
+        "name": "Kayla Harrison"
       },
       {
-        "weight": "ウェルター級",
-        "name": "Islam Makhachev",
-        "since": "2025年11月15日",
-        "defenses": 1
+        "weight": "Poids mouche",
+        "name": "Joshua Van"
       },
       {
-        "weight": "ミドル級",
-        "name": "Sean Strickland",
-        "since": "2026年5月9日",
-        "defenses": 0
+        "weight": "Poids coq",
+        "name": "Petr Yan"
       },
       {
-        "weight": "ライトヘビー級",
-        "name": "Carlos Ulberg",
-        "since": "2026年4月11日",
-        "defenses": 0
+        "weight": "Poids plume",
+        "name": "Alexander Volkanovski"
       },
       {
-        "weight": "ヘビー級",
-        "name": "Ciryl Gane",
-        "since": "2026年9月14日",
-        "defenses": 0
+        "weight": "Poids légers",
+        "name": "Justin Gaethje"
+      },
+      {
+        "weight": "Poids mi-moyens",
+        "name": "Islam Makhachev"
+      },
+      {
+        "weight": "Poids moyens",
+        "name": "Sean Strickland"
+      },
+      {
+        "weight": "Poids mi-lourds",
+        "name": "Carlos Ulberg"
+      },
+      {
+        "weight": "Poids lourds",
+        "name": "Ciryl Gane"
+      },
+      {
+        "weight": "Poids paille féminins",
+        "name": "Mackenzie Dern"
+      },
+      {
+        "weight": "Poids mouche féminins",
+        "name": "Natalia Silva"
+      },
+      {
+        "weight": "Poids coq féminins",
+        "name": "Kayla Harrison"
       }
     ],
-    "women": [
-      {
-        "weight": "女子ストロー級",
-        "name": "Mackenzie Dern",
-        "since": "2025年10月25日",
-        "defenses": 1
-      },
-      {
-        "weight": "女子フライ級",
-        "name": "Natalia Silva",
-        "since": "2026年10月3日",
-        "defenses": 0
-      },
-      {
-        "weight": "女子バンタム級",
-        "name": "Kayla Harrison",
-        "since": "2025年6月7日",
-        "defenses": 0
-      },
-      {
-        "weight": "女子ストロー級",
-        "name": "Mackenzie Dern",
-        "since": "2025年10月25日",
-        "defenses": 1
-      },
-      {
-        "weight": "女子フライ級",
-        "name": "Natalia Silva",
-        "since": "2026年10月3日",
-        "defenses": 0
-      },
-      {
-        "weight": "女子バンタム級",
-        "name": "Kayla Harrison",
-        "since": "2025年6月7日",
-        "defenses": 0
-      }
-    ],
+    "women": [],
     "p4p_men": [
       {
         "rank": 1,
@@ -178,48 +137,7 @@
         "name": "Alex Pereira"
       }
     ],
-    "p4p_women": [
-      {
-        "rank": 1,
-        "name": "Valentina Shevchenko"
-      },
-      {
-        "rank": 2,
-        "name": "Kayla Harrison"
-      },
-      {
-        "rank": 3,
-        "name": "Zhang Weili"
-      },
-      {
-        "rank": 4,
-        "name": "Natalia Silva"
-      },
-      {
-        "rank": 5,
-        "name": "Mackenzie Dern"
-      },
-      {
-        "rank": 6,
-        "name": "Alexa Grasso"
-      },
-      {
-        "rank": 7,
-        "name": "Manon Fiorot"
-      },
-      {
-        "rank": 8,
-        "name": "Erin Blanchfield"
-      },
-      {
-        "rank": 9,
-        "name": "Tatiana Suarez"
-      },
-      {
-        "rank": 10,
-        "name": "Julianna Peña"
-      }
-    ]
+    "p4p_women": []
   },
   "rizin": [
     {
