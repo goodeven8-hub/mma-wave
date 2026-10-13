@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-10-11",
-    "time": "09:00",
-    "name": "UFC Fight Night: Allen vs. Duncan",
-    "matchup": "",
-    "venue": "Meta Apex",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-october-10-2026"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-10-18",
     "time": "09:00",
     "name": "UFC Fight Night: Buckley vs. Malott",
