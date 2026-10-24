@@ -11,13 +11,13 @@
         "weight": "バンタム級",
         "name": "Petr Yan",
         "since": "2025年12月6日",
-        "defenses": 0
+        "defenses": 1
       },
       {
         "weight": "フェザー級",
         "name": "Alexander Volkanovski",
         "since": "2025年4月12日",
-        "defenses": 1
+        "defenses": 2
       },
       {
         "weight": "ライト級",
@@ -59,13 +59,13 @@
         "weight": "バンタム級",
         "name": "Petr Yan",
         "since": "2025年12月6日",
-        "defenses": 0
+        "defenses": 1
       },
       {
         "weight": "フェザー級",
         "name": "Alexander Volkanovski",
         "since": "2025年4月12日",
-        "defenses": 1
+        "defenses": 2
       },
       {
         "weight": "ライト級",
@@ -163,11 +163,11 @@
       },
       {
         "rank": 7,
-        "name": "Sean Strickland"
+        "name": "Tom Aspinall"
       },
       {
         "rank": 8,
-        "name": "Tom Aspinall"
+        "name": "Sean Strickland"
       },
       {
         "rank": 9,

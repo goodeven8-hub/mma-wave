@@ -17,7 +17,7 @@
     "time": "09:00",
     "name": "UFC Fight Night: Moicano vs. Nolan",
     "matchup": "",
-    "venue": "[ 19 ]",
+    "venue": "[ 20 ]",
     "watch": [
       "unext"
     ],
@@ -134,5 +134,17 @@
       "abema"
     ],
     "url": "https://jp.rizinff.com/"
+  },
+  {
+    "cat": "ufc",
+    "date": "2027-01-17",
+    "time": "09:00",
+    "name": "UFC Fight Night 296",
+    "matchup": "",
+    "venue": "American Airlines Center",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-january-16-2027"
   }
 ]
