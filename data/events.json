@@ -1,23 +1,11 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-10-25",
-    "time": "11:00",
-    "name": "UFC 333: Volkanovski vs. Evloev",
-    "matchup": "",
-    "venue": "Etihad Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-333"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-11-01",
     "time": "09:00",
     "name": "UFC Fight Night: Moicano vs. Nolan",
     "matchup": "",
-    "venue": "[ 20 ]",
+    "venue": "[ 21 ]",
     "watch": [
       "unext"
     ],
@@ -146,5 +134,17 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-january-16-2027"
+  },
+  {
+    "cat": "ufc",
+    "date": "2027-01-24",
+    "time": "09:00",
+    "name": "UFC Fight Night 297",
+    "matchup": "",
+    "venue": "Meta Apex",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-january-23-2027"
   }
 ]
