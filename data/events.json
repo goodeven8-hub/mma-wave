@@ -5,7 +5,7 @@
     "time": "09:00",
     "name": "UFC Fight Night: Moicano vs. Nolan",
     "matchup": "",
-    "venue": "[ 21 ]",
+    "venue": "[ 20 ]",
     "watch": [
       "unext"
     ],
@@ -27,7 +27,7 @@
     "cat": "ufc",
     "date": "2026-11-08",
     "time": "09:00",
-    "name": "UFC Fight Night: Bonfim vs. Brady",
+    "name": "UFC Fight Night 293",
     "matchup": "",
     "venue": "Meta Apex",
     "watch": [
@@ -134,17 +134,5 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-january-16-2027"
-  },
-  {
-    "cat": "ufc",
-    "date": "2027-01-24",
-    "time": "09:00",
-    "name": "UFC Fight Night 297",
-    "matchup": "",
-    "venue": "Meta Apex",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-january-23-2027"
   }
 ]
