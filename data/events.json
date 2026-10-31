@@ -134,5 +134,17 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-january-16-2027"
+  },
+  {
+    "cat": "ufc",
+    "date": "2027-01-31",
+    "time": "11:00",
+    "name": "UFC 336: Van vs. Kape",
+    "matchup": "",
+    "venue": "Scotiabank Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-336"
   }
 ]
