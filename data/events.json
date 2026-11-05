@@ -125,6 +125,18 @@
   },
   {
     "cat": "ufc",
+    "date": "2027-01-24",
+    "time": "09:00",
+    "name": "UFC Fight Night 297",
+    "matchup": "",
+    "venue": "TBA",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-january-23-2027"
+  },
+  {
+    "cat": "ufc",
     "date": "2027-01-31",
     "time": "11:00",
     "name": "UFC 336: Van vs. Kape",
