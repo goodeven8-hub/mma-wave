@@ -146,5 +146,17 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-336"
+  },
+  {
+    "cat": "ufc",
+    "date": "2027-02-08",
+    "time": "09:00",
+    "name": "UFC Fight Night: Salkilld vs. Saint Denis",
+    "matchup": "",
+    "venue": "Afterpay Arena",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-fight-night-february-07-2027"
   }
 ]
