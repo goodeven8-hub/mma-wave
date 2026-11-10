@@ -1,29 +1,5 @@
 [
   {
-    "cat": "one",
-    "date": "2026-11-07",
-    "time": "20:00",
-    "name": "ONE Fight Night 48",
-    "matchup": "",
-    "venue": "Lumpinee Boxing Stadium",
-    "watch": [
-      "one-fc"
-    ],
-    "url": "https://www.onefc.com/events/"
-  },
-  {
-    "cat": "ufc",
-    "date": "2026-11-08",
-    "time": "09:00",
-    "name": "UFC Fight Night: Cortes-Acosta vs. Walker",
-    "matchup": "",
-    "venue": "Meta Apex",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-november-07-2026"
-  },
-  {
     "cat": "rizin",
     "date": "2026-11-08",
     "time": "17:00",
@@ -65,7 +41,7 @@
     "cat": "ufc",
     "date": "2026-12-06",
     "time": "09:00",
-    "name": "UFC Fight Night 295",
+    "name": "UFC Fight Night: Adesanya vs. Magomedov",
     "matchup": "",
     "venue": "ANB Arena",
     "watch": [
@@ -101,7 +77,7 @@
     "cat": "rizin",
     "date": "2026-12-31",
     "time": "17:00",
-    "name": "Rizin: New Year's Eve Event",
+    "name": "Super Rizin 6",
     "matchup": "",
     "venue": "Vantelin Dome Nagoya",
     "watch": [
