@@ -1,19 +1,5 @@
 [
   {
-    "cat": "rizin",
-    "date": "2026-11-08",
-    "time": "17:00",
-    "name": "Rizin 55",
-    "matchup": "",
-    "venue": "LaLa Arena Tokyo-Bay",
-    "watch": [
-      "unext",
-      "rizin-live",
-      "abema"
-    ],
-    "url": "https://jp.rizinff.com/_ct/17852466"
-  },
-  {
     "cat": "ufc",
     "date": "2026-11-15",
     "time": "11:00",
@@ -43,7 +29,7 @@
     "time": "09:00",
     "name": "UFC Fight Night: Adesanya vs. Magomedov",
     "matchup": "",
-    "venue": "ANB Arena",
+    "venue": "anb Arena",
     "watch": [
       "unext"
     ],
