@@ -47,7 +47,7 @@
         "weight": "ヘビー級",
         "name": "Ciryl Gane",
         "since": "2026年9月14日",
-        "defenses": 0
+        "defenses": 1
       },
       {
         "weight": "フライ級",
@@ -95,7 +95,7 @@
         "weight": "ヘビー級",
         "name": "Ciryl Gane",
         "since": "2026年9月14日",
-        "defenses": 0
+        "defenses": 1
       }
     ],
     "women": [
@@ -115,7 +115,7 @@
         "weight": "女子バンタム級",
         "name": "Kayla Harrison",
         "since": "2025年6月7日",
-        "defenses": 0
+        "defenses": 1
       },
       {
         "weight": "女子ストロー級",
@@ -133,7 +133,7 @@
         "weight": "女子バンタム級",
         "name": "Kayla Harrison",
         "since": "2025年6月7日",
-        "defenses": 0
+        "defenses": 1
       }
     ],
     "p4p_men": [
