@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-11-15",
-    "time": "11:00",
-    "name": "UFC 334: Gane vs. Hokit",
-    "matchup": "",
-    "venue": "Madison Square Garden",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-334"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-11-22",
     "time": "09:00",
     "name": "UFC Fight Night: Procházka vs. Stirling",
