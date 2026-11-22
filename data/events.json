@@ -120,5 +120,17 @@
       "unext"
     ],
     "url": "https://www.ufc.com/event/ufc-fight-night-february-13-2027"
+  },
+  {
+    "cat": "ufc",
+    "date": "2027-02-21",
+    "time": "11:00",
+    "name": "UFC 337",
+    "matchup": "",
+    "venue": "Kia Center",
+    "watch": [
+      "unext"
+    ],
+    "url": "https://www.ufc.com/event/ufc-337"
   }
 ]
