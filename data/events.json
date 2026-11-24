@@ -1,18 +1,6 @@
 [
   {
     "cat": "ufc",
-    "date": "2026-11-22",
-    "time": "09:00",
-    "name": "UFC Fight Night: Procházka vs. Stirling",
-    "matchup": "",
-    "venue": "Ali Bin Hamad al-Attiyah Arena",
-    "watch": [
-      "unext"
-    ],
-    "url": "https://www.ufc.com/event/ufc-fight-night-november-21-2026"
-  },
-  {
-    "cat": "ufc",
     "date": "2026-12-06",
     "time": "09:00",
     "name": "UFC Fight Night: Adesanya vs. Magomedov",
